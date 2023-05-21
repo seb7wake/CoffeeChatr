@@ -1,0 +1,107 @@
+.navbar-container {
+  background-color: #ffff;
+  color: #1a120b;
+  height: 4em;
+  display: flex;
+  position: fixed;
+  align-items: center;
+  margin: 0;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 100;
+}
+
+:root {
+  background-color: #1a120b;
+  color: #ffff;
+  font-family: "Roboto Mono", monospace;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+  margin: 0;
+  padding: 0;
+}
+
+.title {
+  margin-left: 0.7em;
+  margin-right: 2em;
+}
+
+.link-container {
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+
+.create-chat-selected {
+  margin-right: 2em;
+  color: inherit;
+}
+
+.view-chats-selected {
+  margin-right: 2em;
+  color: inherit;
+}
+
+.view-chats-unselected {
+  margin-right: 2em;
+  text-decoration: none;
+  color: #3c2a21;
+}
+
+.create-chat-unselected {
+  margin-right: 2em;
+  text-decoration: none;
+  color: #3c2a21;
+}
+
+.auth-button {
+  display: inline-block;
+  box-sizing: border-box;
+  height: 40px;
+  line-height: 34px;
+  padding: 0px 40px;
+  border-radius: 999em;
+  /* color: #1e90ff; */
+  font-size: 16px;
+  vertical-align: bottom;
+  white-space: nowrap;
+  border: 2px solid #3c2a21;
+  /* font-family: lato; */
+  /* letter-spacing: 2px; */
+  transition: 0.15s background-color, 0.15s border-color, 0.15s color,
+    0.15s fill;
+  font-weight: 600;
+
+  background-color: #ffff;
+  color: #182747;
+}
+
+.auth-button-text {
+  text-decoration: none;
+}
+
+.create-chat-title {
+  margin-top: 5em;
+  margin-left: 10%;
+}
+
+.form-container {
+  margin-top: 5%;
+  margin-left: 10%;
+}
+
+.form-input {
+  margin-bottom: 1em;
+}
+
+.error {
+  color: red;
+}
+
+/* .auth-button:hover {
+  background-color: #182747;
+  color: #ffff;
+} */
