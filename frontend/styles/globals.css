@@ -57,6 +57,23 @@
   color: #3c2a21;
 }
 
+.chat-item {
+  border: 1px solid #ffff;
+  border-radius: 2em;
+  padding: 1em 3em;
+  margin: 1em;
+}
+
+.chat-item:hover {
+  background-color: #ffff;
+  color: #182747;
+}
+
+.item-link {
+  color: inherit;
+  text-decoration: none;
+}
+
 .auth-button {
   display: inline-block;
   box-sizing: border-box;

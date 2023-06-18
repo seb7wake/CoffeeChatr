@@ -19,15 +19,14 @@ from rest_framework import routers
 from app import views
 
 router = routers.DefaultRouter()
-# router.register(r'users', views.UserViewSet, 'users')
-# router.register(r'meetings', views.MeetingViewSet, 'meetings')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('generate/<str:profile_url>/', views.GenerateQuestionList.as_view(), name="generate"),
+    path('generate/', views.GenerateQuestionList.as_view(), name="generate"),
     path('api/', include(router.urls)),
     path('api/users/<str:email>/', views.UserDetail.as_view(), name="user"),
     path('api/users/', views.UserList.as_view(), name="users"),
     path('api/users/<int:id>/meetings/', views.MeetingList.as_view(), name="meetings"),
     path('api/meetings/<int:id>/', views.MeetingDetail.as_view(), name="meeting"),
+    path('api/meetings/', views.Meetings.as_view(), name="all_meetings"),
 ]

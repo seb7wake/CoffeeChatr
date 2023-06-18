@@ -17,6 +17,9 @@ const TextArea = (props) => {
         value={props.value}
         onChange={(val) => props.handleChange(props.name, val)}
       />
+      {props?.errors && props.errors[props.name] && (
+        <div className="error">{props.errors[props.name]}</div>
+      )}
     </div>
   );
 };

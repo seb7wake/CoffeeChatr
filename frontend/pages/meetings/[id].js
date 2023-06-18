@@ -1,16 +1,19 @@
-import Navbar from "@/components/Navbar";
-import TextArea from "@/components/TextArea";
-import TextInput from "@/components/TextInput";
 import React, { useState, useEffect } from "react";
-import { generateQuestions, createChat } from "@/pages/api/chats";
-import { getUser } from "@/pages/api/user";
-import Router from "next/router";
+import { useRouter } from "next/router";
+import { getChat } from "@/pages/api/chats";
 import { useUser } from "@auth0/nextjs-auth0/client";
+import { getUser } from "@/pages/api/user";
+import { generateQuestions, updateChat } from "@/pages/api/chats";
+import Router from "next/router";
 import DateTimePicker from "react-datetime-picker";
 import "react-datetime-picker/dist/DateTimePicker.css";
 import "react-calendar/dist/Calendar.css";
+import Navbar from "@/components/Navbar";
+import TextArea from "@/components/TextArea";
+import TextInput from "@/components/TextInput";
 
-const Create = () => {
+const Meetings = () => {
+  const router = useRouter();
   const [form, setForm] = useState({
     title: "",
     invitee_name: "",
@@ -29,8 +32,17 @@ const Create = () => {
   });
 
   useEffect(() => {
+    console.log("yes", router.query.id);
+    if (router.query.id) {
+      getChat(router.query.id).then((result) => {
+        console.log(result);
+        setForm((prev) => ({ ...prev, ...result }));
+      });
+    }
+  }, [router]);
+
+  useEffect(() => {
     if (user) {
-      console.log("user:", user);
       getUser(user.email).then((result) => {
         if (result?.data) {
           console.log("result:", result.data);
@@ -44,7 +56,7 @@ const Create = () => {
 
   useEffect(() => {
     if (!isLoading && !user) {
-      Router.replace("/");
+      router.replace("/");
     }
   }, [isLoading]);
 
@@ -109,22 +121,19 @@ const Create = () => {
       return;
     }
     console.log(form);
-    createChat(currentUser.id, trimEmptyFields(form))
-      .then((data) => {
-        console.log(data);
-      })
-      .then(() => {
-        Router.replace("/");
-      });
+    updateChat(form.id, trimEmptyFields(form)).then((data) => {
+      console.log(data);
+    });
   };
 
   if (isLoading || !currentUser) return <div>Loading...</div>;
+
   if (error) return <div>{error.message}</div>;
 
   return (
     <div>
-      <Navbar isCreate={true} userId={currentUser.id} />
-      <h2 className="create-chat-title">Create Coffee Chat</h2>
+      <Navbar isCreate={false} userId={currentUser.id} />
+      <h2 className="create-chat-title">Update Coffee Chat</h2>
       <div className="form-container">
         <form>
           <TextInput
@@ -144,13 +153,13 @@ const Create = () => {
             errors={errors}
           />
           {/* <TextInput
-            name="invitee_linkedin_url"
-            title={"Invitee Linkedin URL"}
-            className="form-input"
-            value={form.invitee_linkedin_url}
-            handleChange={handleTextInputChange}
-            errors={errors}
-          /> */}
+        name="invitee_linkedin_url"
+        title={"Invitee Linkedin URL"}
+        className="form-input"
+        value={form.invitee_linkedin_url}
+        handleChange={handleTextInputChange}
+        errors={errors}
+      /> */}
           <TextInput
             name="invitee_industry"
             title={"Invitee Industry"}
@@ -197,11 +206,11 @@ const Create = () => {
             value={form.meeting_notes}
             handleChange={handleTextAreaChange}
           />
-          <button onClick={handleSubmit}>Create Coffee Chat</button>
+          <button onClick={handleSubmit}>Update Coffee Chat</button>
         </form>
       </div>
     </div>
   );
 };
 
-export default Create;
+export default Meetings;

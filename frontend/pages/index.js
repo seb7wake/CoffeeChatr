@@ -4,6 +4,7 @@ import { Inter } from "next/font/google";
 import { useUser } from "@auth0/nextjs-auth0/client";
 import Navbar from "@/components/Navbar";
 import SignOn from "../components/SignOn";
+import Container from "react-bootstrap/Container";
 import { getChats } from "./api/chats";
 import { createUser, getUser } from "./api/user";
 
@@ -17,8 +18,9 @@ export default function Home() {
   const [currentUser, setCurrentUser] = useState(undefined);
 
   useEffect(() => {
-    if (user?.id !== undefined) {
-      getChats(user.id).then((result) => {
+    if (currentUser !== undefined) {
+      getChats(currentUser.id).then((result) => {
+        console.log(result);
         setChats(result);
       });
     }
@@ -29,18 +31,21 @@ export default function Home() {
       getUser(user.email)
         .catch((error) => {
           createUser(user.email).then(async (result) => {
-            await user.update({
-              id: result.data.id,
-            });
+            setCurrentUser(result.data);
           });
         })
         .then(async (result) => {
-          await user.update({
-            id: result.data.id,
-          });
+          setCurrentUser(result.data);
         });
     }
   }, [user]);
+
+  const showChats = () => {
+    if (chats.length === 0) return <div>No chats yet!</div>;
+    return chats.map((chat) => {
+      return <div key={chat.id}>{chat.title}</div>;
+    });
+  };
 
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>{error.message}</div>;
@@ -52,13 +57,17 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
       <main>
-        {user ? (
+        {user && currentUser ? (
           <>
             <Navbar isCreate={false} userId={user.id} />
             <div style={{ marginTop: "100px" }}>
               Welcome {user.email} with ID: {user.id}!{" "}
               <a href="/api/auth/logout">Logout</a>
             </div>
+            <Container>
+              <h2>Coffee Chats</h2>
+              <div>{showChats()}</div>
+            </Container>
           </>
         ) : (
           <SignOn />
