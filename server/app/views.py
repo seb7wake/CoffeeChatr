@@ -85,6 +85,7 @@ class UserList(APIView):
         return Response(serializer.data)
     
     def post(self, request):
+        request.data['username'] = request.data['email']
         serializer = UserSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
@@ -145,7 +146,6 @@ class MeetingDetail(APIView):
         serializer = MeetingSerializer(meeting, data=request.data)
         if serializer.is_valid():
             serializer.save()
-            import pdb; pdb.set_trace()
             return Response(serializer.data, status.HTTP_200_OK)
         return Response({'errors': serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
     
@@ -157,6 +157,7 @@ class MeetingDetail(APIView):
 class GenerateQuestionList(APIView):    
     def post(self, request):
         print('Generate question list...')
+        # profile = linkedin_scrape(request.data)
         questions = generate_questions(request.data)
         return Response(questions)  
 
@@ -167,7 +168,6 @@ def linkedin_scrape(profile_url):
     driver = webdriver.Chrome("../chromedriver", options=options)
     linkedin_login(driver)    
     driver.get("https://www.linkedin.com/in/" + profile_url + "/")
-    time.sleep(2) 
     print("Scraping education...")
     education = driver.find_element(By.ID, "education").find_element(By.XPATH, "..").text
     try:
@@ -183,16 +183,27 @@ def linkedin_scrape(profile_url):
     experience = driver.find_element(By.CLASS_NAME, "scaffold-finite-scroll__content").text
     print("Scraping complete...")
     driver.quit()
-    return {"education": education, "about": about, "experience": experience}
+    return "education:\n" + education + "\n\nabout:\n" + about + "\n\nexperience:\n" + experience
 
 def generate_questions(background):
+    profile = ""
+    if background.get('invitee_about'):
+        profile += "about:\n" + background['invitee_about'] + "\n\n"
+    if background.get('invitee_experience'):
+        profile += "experience:\n" + background['invitee_experience'] + "\n\n"
+    if background.get('invitee_education'):
+        profile += "education:\n" + background['invitee_education'] + "\n\n"
+    industry = ""
+    if background.get('invitee_industry'):
+        industry = background['invitee_industry'] + " industry "
     headers = {
         'Content-Type': 'application/json',
         "Authorization": "Bearer " + os.environ.get("OPENAI_API_KEY")
     }
-    content = "Create coffee chat conversation topics with a professional with the following experience background:\n\n" + background
+    content = "Create coffee chat conversation questions to ask a " + industry + "professional with the following background:\n\n" + profile
     json = get_json(content)
-    res = requests.post(url="https://api.openai.com/v1/chat/completions", headers=headers, json=json).json()["choices"][0]["message"]["content"]
+    print('sending request...')
+    res = requests.post(url="https://api.openai.com/v1/chat/completions", headers=headers, json=json).json()["choices"][0]['message']['content']
     questions = format_questions(res)
     return questions
 

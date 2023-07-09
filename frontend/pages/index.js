@@ -2,11 +2,12 @@ import React, { useState, useEffect } from "react";
 import Head from "next/head";
 import { Inter } from "next/font/google";
 import { useUser } from "@auth0/nextjs-auth0/client";
+import Router from "next/router";
 import Navbar from "@/components/Navbar";
 import SignOn from "../components/SignOn";
-import Container from "react-bootstrap/Container";
 import { getChats } from "./api/chats";
 import { createUser, getUser } from "./api/user";
+import Meetings from "../components/Meetings";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,7 +22,11 @@ export default function Home() {
     if (currentUser !== undefined) {
       getChats(currentUser.id).then((result) => {
         console.log(result);
-        setChats(result);
+        setChats(
+          result.sort(
+            (a, b) => a.meeting_start_time - b.meeting_start_time || a.id - b.id
+          )
+        );
       });
     }
   }, [currentUser]);
@@ -37,17 +42,12 @@ export default function Home() {
         .then(async (result) => {
           setCurrentUser(result.data);
         });
+    } else if (!isLoading) {
+      Router.push("/login");
     }
-  }, [user]);
+  }, [user, isLoading]);
 
-  const showChats = () => {
-    if (chats.length === 0) return <div>No chats yet!</div>;
-    return chats.map((chat) => {
-      return <div key={chat.id}>{chat.title}</div>;
-    });
-  };
-
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading || !user || !currentUser) return <div>Loading...</div>;
   if (error) return <div>{error.message}</div>;
 
   return (
@@ -57,21 +57,13 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
       <main>
-        {user && currentUser ? (
-          <>
-            <Navbar isCreate={false} userId={user.id} />
-            <div style={{ marginTop: "100px" }}>
-              Welcome {user.email} with ID: {user.id}!{" "}
-              <a href="/api/auth/logout">Logout</a>
-            </div>
-            <Container>
-              <h2>Coffee Chats</h2>
-              <div>{showChats()}</div>
-            </Container>
-          </>
-        ) : (
-          <SignOn />
-        )}
+        <>
+          <Navbar isCreate={false} userId={currentUser.id} />
+          <div style={{ marginTop: "100px" }}>
+            Welcome {user.email} with ID: {currentUser.id}!{" "}
+          </div>
+          <Meetings chats={chats} />
+        </>
       </main>
     </>
   );

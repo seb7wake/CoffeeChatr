@@ -14,8 +14,10 @@ const TextArea = (props) => {
       <label>{props.title}</label>
       <QuillNoSSRWrapper
         theme="snow"
+        className="text-area"
         value={props.value}
         onChange={(val) => props.handleChange(props.name, val)}
+        placeholder={props.placeholder ?? ""}
       />
       {props?.errors && props.errors[props.name] && (
         <div className="error">{props.errors[props.name]}</div>
