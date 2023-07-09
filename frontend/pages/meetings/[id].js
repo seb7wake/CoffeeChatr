@@ -6,6 +6,8 @@ import { getUser } from "@/pages/api/user";
 import { updateChat } from "@/pages/api/chats";
 import Navbar from "@/components/Navbar";
 import Form from "@/components/Form";
+import LoadingOverlay from "react-loading-overlay";
+import Spinner from "@/components/Spinner";
 
 const Meetings = () => {
   const router = useRouter();
@@ -23,8 +25,10 @@ const Meetings = () => {
   const { user, error, isLoading } = useUser();
   const [errors, setErrors] = useState({
     title: "",
-    background: "",
+    questions: "",
+    meeting_start_time: "",
   });
+  const [isLoadingQuestions, setIsLoadingQuestions] = useState(false);
 
   useEffect(() => {
     console.log("yes", router.query.id);
@@ -81,24 +85,31 @@ const Meetings = () => {
     });
   };
 
-  if (isLoading || !currentUser || !form) return <div>Loading...</div>;
+  if (isLoading || !currentUser || !form) return <Spinner />;
 
   if (error) return <div>{error.message}</div>;
 
   return (
-    <div>
-      <Navbar isCreate={true} userId={user.id} />
-      <h2 className="create-chat-title">Update Coffee Chat</h2>
-      <div className="form-container">
-        <Form
-          onSubmit={onSubmit}
-          user={currentUser}
-          errors={errors}
-          setErrors={setErrors}
-          existingMeeting={form}
-        />
+    <LoadingOverlay
+      active={isLoadingQuestions}
+      spinner
+      text="Generating questions... This could take a minute."
+    >
+      <div>
+        <Navbar isCreate={false} userId={user.id} />
+        <h2 className="create-chat-title">Update Coffee Chat</h2>
+        <div className="form-container">
+          <Form
+            onSubmit={onSubmit}
+            user={currentUser}
+            errors={errors}
+            setErrors={setErrors}
+            existingMeeting={form}
+            setIsLoadingQuestions={setIsLoadingQuestions}
+          />
+        </div>
       </div>
-    </div>
+    </LoadingOverlay>
   );
 };
 

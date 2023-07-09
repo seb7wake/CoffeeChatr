@@ -10,14 +10,18 @@ import DateTimePicker from "react-datetime-picker";
 import "react-datetime-picker/dist/DateTimePicker.css";
 import "react-calendar/dist/Calendar.css";
 import Form from "@/components/Form";
+import LoadingOverlay from "react-loading-overlay";
+import Spinner from "@/components/Spinner";
 
 const Create = () => {
   const [currentUser, setCurrentUser] = useState(undefined);
   const [errors, setErrors] = useState({
     title: "",
     questions: "",
+    meeting_start_time: "",
   });
   const { user, error, isLoading } = useUser();
+  const [isLoadingQuestions, setIsLoadingQuestions] = useState(false);
 
   useEffect(() => {
     if (user) {
@@ -48,6 +52,13 @@ const Create = () => {
       }));
       return;
     }
+    if (!form.meeting_start_time) {
+      setErrors((prevState) => ({
+        ...prevState,
+        meeting_start_time: "Please enter a meeting start time",
+      }));
+      return;
+    }
     console.log(form);
     createChat(currentUser.id, trimEmptyFields(form)).then((data) => {
       console.log(data);
@@ -65,22 +76,29 @@ const Create = () => {
     return newObj;
   };
 
-  if (isLoading || !currentUser) return <div>Loading...</div>;
+  if (isLoading || !currentUser) return <Spinner />;
   if (error) return <div>{error.message}</div>;
 
   return (
-    <div>
-      <Navbar isCreate={true} userId={user.id} />
-      <h2 className="create-chat-title">Create Coffee Chat</h2>
-      <div className="form-container">
-        <Form
-          onSubmit={handleSubmit}
-          user={currentUser}
-          errors={errors}
-          setErrors={setErrors}
-        />
+    <LoadingOverlay
+      active={isLoadingQuestions}
+      spinner
+      text="Generating questions... This could take a minute."
+    >
+      <div>
+        <Navbar isCreate={true} userId={user.id} />
+        <h2 className="create-chat-title">Create Coffee Chat</h2>
+        <div className="form-container">
+          <Form
+            onSubmit={handleSubmit}
+            user={currentUser}
+            errors={errors}
+            setErrors={setErrors}
+            setIsLoadingQuestions={setIsLoadingQuestions}
+          />
+        </div>
       </div>
-    </div>
+    </LoadingOverlay>
   );
 };
 

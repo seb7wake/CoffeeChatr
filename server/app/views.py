@@ -203,7 +203,10 @@ def generate_questions(background):
     content = "Create coffee chat conversation questions to ask a " + industry + "professional with the following background:\n\n" + profile
     json = get_json(content)
     print('sending request...')
-    res = requests.post(url="https://api.openai.com/v1/chat/completions", headers=headers, json=json).json()["choices"][0]['message']['content']
+    try:
+        res = requests.post(url="https://api.openai.com/v1/chat/completions", headers=headers, json=json).json()["choices"][0]['message']['content']
+    except KeyError:
+        return {"error": "Sorry, I couldn't generate any questions for this profile. Try to limit the amount of information you provide and avoid using images."}
     questions = format_questions(res)
     return questions
 

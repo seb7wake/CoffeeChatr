@@ -19,6 +19,7 @@ export const generateQuestions = async (background) => {
       body: JSON.stringify(background),
     }
   );
+  console.log(response);
   const data = await response.json();
   return data;
 };

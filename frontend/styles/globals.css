@@ -12,6 +12,10 @@
   z-index: 100;
 }
 
+body {
+  margin: 0;
+}
+
 :root {
   background-color: #1a120b;
   color: #ffff;
@@ -163,10 +167,22 @@
   margin-right: 2rem;
 }
 
+.react-datetime-picker svg {
+  stroke: #fff;
+}
+
 .filter-btn {
   margin-right: 1rem;
 }
 
 .text-area > .ql-toolbar .ql-picker {
   color: #fff;
+}
+
+.vortex-wrapper {
+  display: flex;
+  align-items: center;
+  height: 100vh;
+  margin-left: auto;
+  margin-right: auto;
 }

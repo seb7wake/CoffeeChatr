@@ -7,6 +7,7 @@ const TextInput = (props) => {
       <input
         type="text"
         name={props.name}
+        required={props.required}
         value={props.value}
         onChange={props.handleChange}
       />

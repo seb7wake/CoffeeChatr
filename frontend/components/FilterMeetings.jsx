@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Container, Button } from "react-bootstrap";
 import Item from "./Item";
 
-const Meetings = ({ chats }) => {
+const FilterMeetings = ({ chats }) => {
   const [filter, setFilter] = useState("");
   const [time, setTime] = useState(new Date());
   const [filteredChats, setFilteredChats] = useState(chats);
@@ -59,4 +59,4 @@ const Meetings = ({ chats }) => {
   );
 };
 
-export default Meetings;
+export default FilterMeetings;

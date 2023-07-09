@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
+import { Vortex } from "react-loader-spinner";
 import Head from "next/head";
 import { Inter } from "next/font/google";
 import { useUser } from "@auth0/nextjs-auth0/client";
 import Router from "next/router";
 import Navbar from "@/components/Navbar";
-import SignOn from "../components/SignOn";
 import { getChats } from "./api/chats";
 import { createUser, getUser } from "./api/user";
-import Meetings from "../components/Meetings";
+import FilterMeetings from "../components/FilterMeetings";
+import Spinner from "../components/Spinner";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -24,7 +25,9 @@ export default function Home() {
         console.log(result);
         setChats(
           result.sort(
-            (a, b) => a.meeting_start_time - b.meeting_start_time || a.id - b.id
+            (a, b) =>
+              Date.parse(b.meeting_start_time) -
+              Date.parse(a.meeting_start_time)
           )
         );
       });
@@ -47,7 +50,7 @@ export default function Home() {
     }
   }, [user, isLoading]);
 
-  if (isLoading || !user || !currentUser) return <div>Loading...</div>;
+  if (isLoading || !user || !currentUser) return <Spinner />;
   if (error) return <div>{error.message}</div>;
 
   return (
@@ -62,7 +65,7 @@ export default function Home() {
           <div style={{ marginTop: "100px" }}>
             Welcome {user.email} with ID: {currentUser.id}!{" "}
           </div>
-          <Meetings chats={chats} />
+          <FilterMeetings chats={chats} />
         </>
       </main>
     </>

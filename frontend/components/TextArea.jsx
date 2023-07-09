@@ -16,6 +16,7 @@ const TextArea = (props) => {
         theme="snow"
         className="text-area"
         value={props.value}
+        required={props.required}
         onChange={(val) => props.handleChange(props.name, val)}
         placeholder={props.placeholder ?? ""}
       />

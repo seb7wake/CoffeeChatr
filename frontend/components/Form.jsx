@@ -3,6 +3,7 @@ import TextArea from "@/components/TextArea";
 import TextInput from "@/components/TextInput";
 import React, { useState, useEffect } from "react";
 import { generateQuestions, createChat } from "@/pages/api/chats";
+import LoadingOverlay from "react-loading-overlay";
 import { getUser } from "@/pages/api/user";
 import Router from "next/router";
 import { useUser } from "@auth0/nextjs-auth0/client";
@@ -10,7 +11,14 @@ import DateTimePicker from "react-datetime-picker";
 import "react-datetime-picker/dist/DateTimePicker.css";
 import "react-calendar/dist/Calendar.css";
 
-const Form = ({ user, onSubmit, errors, setErrors, existingMeeting }) => {
+const Form = ({
+  user,
+  onSubmit,
+  errors,
+  setErrors,
+  existingMeeting,
+  setIsLoadingQuestions,
+}) => {
   const [form, setForm] = useState({
     title: "",
     invitee_name: "",
@@ -32,9 +40,7 @@ const Form = ({ user, onSubmit, errors, setErrors, existingMeeting }) => {
   }, [existingMeeting]);
 
   const handleTextInputChange = (event) => {
-    console.log(event);
     const { name, value } = event.target;
-    console.log(name, value);
     if (errors[name]) {
       setErrors((prevState) => ({
         ...prevState,
@@ -45,22 +51,21 @@ const Form = ({ user, onSubmit, errors, setErrors, existingMeeting }) => {
       ...prevState,
       [name]: value,
     }));
-    console.log("form:", form);
+    console.log("form after input change:", form);
   };
 
   const handleTextAreaChange = (name, newValue) => {
-    console.log(name, newValue);
     if (errors[name] !== undefined && errors[name] !== "") {
       setErrors({ ...errors, [name]: "" });
     }
-    setForm({ ...form, [name]: newValue });
+    setForm((prevState) => ({ ...prevState, [name]: newValue }));
   };
 
   const getQuestions = async (event) => {
     event.preventDefault();
     if (
-      form.invitee_about === "" ||
-      form.invitee_experience === "" ||
+      form.invitee_about === "" &&
+      form.invitee_experience === "" &&
       form.invitee_education === ""
     ) {
       setErrors((prevState) => ({
@@ -76,11 +81,21 @@ const Form = ({ user, onSubmit, errors, setErrors, existingMeeting }) => {
       invitee_education: form.invitee_education,
       invitee_industry: form.invitee_industry ?? "",
     };
+    setIsLoadingQuestions(true);
     generateQuestions(invitee_info).then((data) => {
-      setForm((prevState) => ({
-        ...prevState,
-        questions: data,
-      }));
+      setIsLoadingQuestions(false);
+      if (data.error) {
+        setErrors((prevState) => ({
+          ...prevState,
+          questions: data.error,
+        }));
+        return;
+      } else {
+        setForm((prevState) => ({
+          ...prevState,
+          questions: data,
+        }));
+      }
     });
   };
 
@@ -93,6 +108,7 @@ const Form = ({ user, onSubmit, errors, setErrors, existingMeeting }) => {
         title={"Title"}
         className="form-input"
         value={form.title}
+        required
         handleChange={handleTextInputChange}
         errors={errors}
       />
@@ -125,12 +141,19 @@ const Form = ({ user, onSubmit, errors, setErrors, existingMeeting }) => {
         <DateTimePicker
           name="meeting_start_time"
           value={form.meeting_start_time}
+          className="date-picker"
+          required
+          disableClock
+          minDate={new Date()}
           onChange={(value) =>
             handleTextInputChange({
               target: { name: "meeting_start_time", value },
             })
           }
         />
+        {errors.meeting_start_time && (
+          <div className="error">{errors.meeting_start_time}</div>
+        )}
       </div>
       <TextArea
         name="invitee_about"
@@ -142,7 +165,7 @@ const Form = ({ user, onSubmit, errors, setErrors, existingMeeting }) => {
       />
       <TextArea
         name="invitee_experience"
-        title="Previous Experience of Guest"
+        title="Previous Work Experience of Guest"
         value={form.invitee_experience}
         handleChange={handleTextAreaChange}
         placeholder="Please list the guest's previous experience."

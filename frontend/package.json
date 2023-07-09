@@ -17,6 +17,8 @@
     "react-bootstrap": "^2.7.4",
     "react-datetime-picker": "^5.0.3",
     "react-dom": "18.2.0",
+    "react-loader-spinner": "^5.3.4",
+    "react-loading-overlay": "^1.0.1",
     "react-quill": "^2.0.0"
   }
 }
