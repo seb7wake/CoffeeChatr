@@ -107,3 +107,5 @@ venv/
 
 # pychache
 __pycache__/
+
+*.pyc
