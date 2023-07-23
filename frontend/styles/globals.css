@@ -1,6 +1,6 @@
 .navbar-container {
-  background-color: #ffff;
-  color: #1a120b;
+  background-color: #1a120b;
+  color: white;
   height: 4em;
   display: flex;
   position: fixed;
@@ -17,7 +17,7 @@ body {
 }
 
 :root {
-  background-color: #1a120b;
+  /* background-color: #1a120b; */
   color: #ffff;
   font-family: "Roboto Mono", monospace;
   font-size: 1rem;
@@ -30,6 +30,7 @@ body {
 .title {
   margin-left: 0.7em;
   margin-right: 2em;
+  color: white;
 }
 
 .link-container {
@@ -52,13 +53,13 @@ body {
 .view-chats-unselected {
   margin-right: 2rem;
   text-decoration: none;
-  color: #3c2a21;
+  color: inherit;
 }
 
 .create-chat-unselected {
   margin-right: 2rem;
   text-decoration: none;
-  color: #3c2a21;
+  color: inherit;
 }
 
 .chat-item {
@@ -71,17 +72,27 @@ body {
 .logout {
   margin-right: 2rem;
   text-decoration: none;
-  color: #3c2a21;
+  color: inherit;
 }
 
 .chat-item:hover {
-  background-color: #ffff;
-  color: #182747;
+  background-color: #1a120b;
+  color: #ffff;
 }
 
 .item-link {
   color: inherit;
   text-decoration: none;
+  background-color: inherit;
+}
+
+.item {
+  transition: 0.4s;
+}
+
+.item:hover {
+  color: white;
+  background-color: #1a120b;
 }
 
 .auth-title {
@@ -127,16 +138,15 @@ body {
   margin-right: 1rem;
 }
 
-.create-chat-title {
-  margin-top: 5rem;
-  margin-left: 10%;
-  margin-right: 10%;
+.chat-title {
+  margin-top: 3rem;
+  margin-left: 10rem;
 }
 
 .form-container {
-  margin-top: 5%;
-  margin-left: 10%;
-  margin-right: 10%;
+  margin-top: 4rem;
+  margin-left: 10rem;
+  margin-right: 10rem;
 }
 
 .form-input {
@@ -151,7 +161,7 @@ body {
   background-color: #ffff;
 }
 
-.text-area > .ql-toolbar .ql-stroke {
+/* .text-area > .ql-toolbar .ql-stroke {
   fill: none;
   stroke: #fff;
 }
@@ -159,6 +169,12 @@ body {
 .text-area > .ql-toolbar .ql-fill {
   fill: #fff;
   stroke: none;
+} */
+
+.react-datetime-picker > .react-datetime-picker__wrapper {
+  padding: 0.375rem 0.75rem;
+  border: var(--bs-border-width) solid var(--bs-border-color);
+  border-radius: var(--bs-border-radius);
 }
 
 .filter-container {
@@ -166,18 +182,24 @@ body {
   flex-direction: row;
   margin-right: 2rem;
 }
-
+/* 
 .react-datetime-picker svg {
   stroke: #fff;
 }
 
 .filter-btn {
   margin-right: 1rem;
+  color: lightgray;
+}
+
+.filter-btn-selected {
+  margin-right: 1rem;
+  color: white;
 }
 
 .text-area > .ql-toolbar .ql-picker {
   color: #fff;
-}
+} */
 
 .vortex-wrapper {
   display: flex;

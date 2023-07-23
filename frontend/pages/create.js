@@ -1,6 +1,4 @@
-import Navbar from "@/components/Navbar";
-import TextArea from "@/components/TextArea";
-import TextInput from "@/components/TextInput";
+import NavigationBar from "@/components/NavigationBar";
 import React, { useState, useEffect } from "react";
 import { generateQuestions, createChat } from "@/pages/api/chats";
 import { getUser } from "@/pages/api/user";
@@ -9,7 +7,7 @@ import { useUser } from "@auth0/nextjs-auth0/client";
 import DateTimePicker from "react-datetime-picker";
 import "react-datetime-picker/dist/DateTimePicker.css";
 import "react-calendar/dist/Calendar.css";
-import Form from "@/components/Form";
+import ChatForm from "@/components/ChatForm";
 import LoadingOverlay from "react-loading-overlay";
 import Spinner from "@/components/Spinner";
 
@@ -86,10 +84,10 @@ const Create = () => {
       text="Generating questions... This could take a minute."
     >
       <div>
-        <Navbar isCreate={true} userId={user.id} />
-        <h2 className="create-chat-title">Create Coffee Chat</h2>
+        <NavigationBar isCreate={true} user={user} />
+        <h2 className="chat-title">Create Coffee Chat</h2>
         <div className="form-container">
-          <Form
+          <ChatForm
             onSubmit={handleSubmit}
             user={currentUser}
             errors={errors}

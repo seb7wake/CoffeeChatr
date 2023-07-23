@@ -1,29 +1,23 @@
 import React from "react";
-import dynamic from "next/dynamic";
-// import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css";
-
-const QuillNoSSRWrapper = dynamic(import("react-quill"), {
-  ssr: false,
-  loading: () => <div>Loading...</div>,
-});
+import { Form } from "react-bootstrap";
 
 const TextArea = (props) => {
   return (
-    <div>
-      <label>{props.title}</label>
-      <QuillNoSSRWrapper
-        theme="snow"
-        className="text-area"
-        value={props.value}
+    <Form.Group className="mb-4">
+      <Form.Label>{props.title}</Form.Label>
+      <Form.Control
+        as="textarea"
+        type="text"
+        name={props.name}
         required={props.required}
-        onChange={(val) => props.handleChange(props.name, val)}
-        placeholder={props.placeholder ?? ""}
+        value={props.value}
+        onChange={props.handleChange}
       />
-      {props?.errors && props.errors[props.name] && (
+      {props.text && <Form.Text muted>{props.text}</Form.Text>}
+      {props.errors[props.name] && (
         <div className="error">{props.errors[props.name]}</div>
       )}
-    </div>
+    </Form.Group>
   );
 };
 

@@ -4,8 +4,8 @@ import { getChat } from "@/pages/api/chats";
 import { useUser } from "@auth0/nextjs-auth0/client";
 import { getUser } from "@/pages/api/user";
 import { updateChat } from "@/pages/api/chats";
-import Navbar from "@/components/Navbar";
-import Form from "@/components/Form";
+import NavigationBar from "@/components/NavigationBar";
+import ChatForm from "@/components/ChatForm";
 import LoadingOverlay from "react-loading-overlay";
 import Spinner from "@/components/Spinner";
 
@@ -96,10 +96,10 @@ const Meetings = () => {
       text="Generating questions... This could take a minute."
     >
       <div>
-        <Navbar isCreate={false} userId={user.id} />
-        <h2 className="create-chat-title">Update Coffee Chat</h2>
+        <NavigationBar isCreate={false} user={user} />
+        <h2 className="chat-title">Update Coffee Chat</h2>
         <div className="form-container">
-          <Form
+          <ChatForm
             onSubmit={onSubmit}
             user={currentUser}
             errors={errors}

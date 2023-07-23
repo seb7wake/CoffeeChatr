@@ -4,7 +4,7 @@ import Head from "next/head";
 import { Inter } from "next/font/google";
 import { useUser } from "@auth0/nextjs-auth0/client";
 import Router from "next/router";
-import Navbar from "@/components/Navbar";
+import NavigationBar from "@/components/NavigationBar";
 import { getChats } from "./api/chats";
 import { createUser, getUser } from "./api/user";
 import FilterMeetings from "../components/FilterMeetings";
@@ -36,17 +36,20 @@ export default function Home() {
 
   useEffect(() => {
     if (user) {
-      getUser(user.email)
+      console.log(" ----> user:", user);
+      const res = getUser(user.email)
         .catch((error) => {
           createUser(user.email).then(async (result) => {
             setCurrentUser(result.data);
           });
         })
         .then(async (result) => {
-          setCurrentUser(result.data);
+          if (result?.data) {
+            setCurrentUser(result.data);
+          }
         });
-    } else if (!isLoading) {
-      Router.push("/login");
+    } else if (!isLoading && !user) {
+      Router.push("/authenticate");
     }
   }, [user, isLoading]);
 
@@ -61,10 +64,7 @@ export default function Home() {
       </Head>
       <main>
         <>
-          <Navbar isCreate={false} userId={currentUser.id} />
-          <div style={{ marginTop: "100px" }}>
-            Welcome {user.email} with ID: {currentUser.id}!{" "}
-          </div>
+          <NavigationBar isCreate={false} user={currentUser} />
           <FilterMeetings chats={chats} />
         </>
       </main>

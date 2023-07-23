@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Container, Button } from "react-bootstrap";
 import Item from "./Item";
+import Tab from "react-bootstrap/Tab";
+import Tabs from "react-bootstrap/Tabs";
 
 const FilterMeetings = ({ chats }) => {
   const [filter, setFilter] = useState("");
@@ -15,47 +17,37 @@ const FilterMeetings = ({ chats }) => {
     return () => clearInterval(interval);
   }, []);
 
-  useEffect(() => {
-    if (filter === "upcoming") {
-      setFilteredChats(
-        chats.filter(
-          (chat) => Date.parse(chat.meeting_start_time) > Date.parse(time)
-        )
-      );
-    } else if (filter === "past") {
-      setFilteredChats(
-        chats.filter(
-          (chat) => Date.parse(chat.meeting_start_time) < Date.parse(time)
-        )
-      );
-    } else {
-      setFilteredChats(chats);
-    }
-  }, [filter, time, chats]);
-
-  const filteredMeetings = () => {
-    if (filteredChats.length === 0) return <div>No chats yet!</div>;
-    return filteredChats.map((chat) => {
+  const filteredMeetings = (meetings) => {
+    if (meetings.length === 0) return <div>No chats yet!</div>;
+    return meetings.map((chat) => {
       return <Item key={chat.id} chat={chat} />;
     });
   };
 
   return (
-    <Container>
+    <div className="mx-5 mt-3">
       <h2>Coffee Chats</h2>
-      <div className="filter-container">
-        <Button className="filter-btn" onClick={() => setFilter("")}>
-          All
-        </Button>
-        <Button className="filter-btn" onClick={() => setFilter("upcoming")}>
-          Upcoming
-        </Button>
-        <Button className="filter-btn" onClick={() => setFilter("past")}>
-          Past
-        </Button>
-      </div>
-      <div>{filteredMeetings()}</div>
-    </Container>
+      {/* <div className="filter-container"> */}
+      <Tabs defaultActiveKey="all" variant="underline" className="mb-3 h4 mt-4">
+        <Tab eventKey="all" title="All">
+          {filteredMeetings(chats)}
+        </Tab>
+        <Tab eventKey="upcoming" title="Upcoming">
+          {filteredMeetings(
+            chats.filter(
+              (chat) => Date.parse(chat.meeting_start_time) > Date.parse(time)
+            )
+          )}
+        </Tab>
+        <Tab eventKey="past" title="Past">
+          {filteredMeetings(
+            chats.filter(
+              (chat) => Date.parse(chat.meeting_start_time) < Date.parse(time)
+            )
+          )}
+        </Tab>
+      </Tabs>
+    </div>
   );
 };
 

@@ -1,17 +1,17 @@
-import Navbar from "@/components/Navbar";
 import TextArea from "@/components/TextArea";
 import TextInput from "@/components/TextInput";
-import React, { useState, useEffect } from "react";
+import { Form } from "react-bootstrap";
+import React, { useState, useEffect, useRef } from "react";
 import { generateQuestions, createChat } from "@/pages/api/chats";
-import LoadingOverlay from "react-loading-overlay";
-import { getUser } from "@/pages/api/user";
-import Router from "next/router";
-import { useUser } from "@auth0/nextjs-auth0/client";
+import { Container, Button } from "react-bootstrap";
+import TextEdit from "@/components/TextEdit";
+import OverlayTrigger from "react-bootstrap/OverlayTrigger";
+import Popover from "react-bootstrap/Popover";
 import DateTimePicker from "react-datetime-picker";
 import "react-datetime-picker/dist/DateTimePicker.css";
 import "react-calendar/dist/Calendar.css";
 
-const Form = ({
+const ChatForm = ({
   user,
   onSubmit,
   errors,
@@ -99,10 +99,25 @@ const Form = ({
     });
   };
 
+  const popover = (
+    <Popover>
+      <Popover.Header as="h3">Generating Questions using AI</Popover.Header>
+      <Popover.Body>
+        Complete at least one of the following fields before generating
+        questions for your meeting:
+        <ul>
+          <li>Guest Description</li>
+          <li>Experience</li>
+          <li>Education</li>
+        </ul>
+      </Popover.Body>
+    </Popover>
+  );
+
   if (!user) return <div></div>;
 
   return (
-    <form onSubmit={(e) => onSubmit(e, form)}>
+    <Form onSubmit={(e) => onSubmit(e, form)}>
       <TextInput
         name="title"
         title={"Title"}
@@ -136,8 +151,8 @@ const Form = ({
         handleChange={handleTextInputChange}
         errors={errors}
       />
-      <div>
-        <label>Meeting Start Time</label>
+      <Form.Group className="mb-4">
+        <label style={{ width: "13rem" }}>Meeting Start Time</label>
         <DateTimePicker
           name="meeting_start_time"
           value={form.meeting_start_time}
@@ -154,56 +169,61 @@ const Form = ({
         {errors.meeting_start_time && (
           <div className="error">{errors.meeting_start_time}</div>
         )}
-      </div>
+      </Form.Group>
       <TextArea
         name="invitee_about"
         title="Description of Guest"
         value={form.invitee_about}
-        handleChange={handleTextAreaChange}
+        handleChange={handleTextInputChange}
         placeholder="Please describe the guest in a few sentences."
         errors={errors}
+        text=""
       />
       <TextArea
         name="invitee_experience"
         title="Previous Work Experience of Guest"
         value={form.invitee_experience}
-        handleChange={handleTextAreaChange}
+        handleChange={handleTextInputChange}
         placeholder="Please list the guest's previous experience."
         errors={errors}
+        text="Tip: Copy information from their Linkedin profile for best results!"
       />
       <TextArea
         name="invitee_education"
         title="Previous Education of Guest"
         value={form.invitee_education}
-        handleChange={handleTextAreaChange}
+        handleChange={handleTextInputChange}
         placeholder="Please list the guest's previous education."
         errors={errors}
       />
-      <p>
-        Tip: Copy their Linkedin profile About, Experience, and Education
-        sections for best results!
-      </p>
-      <button className="generate-questions-button" onClick={getQuestions}>
-        Generate Meeting Questions
-      </button>
-      <TextArea
+      <OverlayTrigger trigger="hover" placement="right" overlay={popover}>
+        <Button
+          className="generate-questions-button mb-2"
+          onClick={getQuestions}
+        >
+          Generate Meeting Questions
+        </Button>
+      </OverlayTrigger>
+      <TextEdit
         name="questions"
         title="Meeting Questions"
         value={form.questions}
         errors={errors}
+        placeholder="Generate questions to ask the guest by clicking the button above. The list of questions will be based on the guest's description, experience, and education"
         handleChange={handleTextAreaChange}
       />
-      <TextArea
+      <TextEdit
         name="meeting_notes"
         title="Meeting Notes"
         value={form.meeting_notes}
+        placeholder="Enter notes from the meeting"
         handleChange={handleTextAreaChange}
       />
-      <button type="submit">
+      <Button type="submit">
         {existingMeeting ? "Update" : "Create"} Coffee Chat
-      </button>
-    </form>
+      </Button>
+    </Form>
   );
 };
 
-export default Form;
+export default ChatForm;

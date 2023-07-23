@@ -22,56 +22,6 @@ from bs4 import BeautifulSoup
 import time
 import requests
 from selenium.common.exceptions import WebDriverException, NoSuchElementException
-
-
-class LoginView(APIView):
-    def post(self, request):
-        email = request.data['email']
-        password = request.data['password']
-        user = authenticate(request, email=email, username=email, password=password)
-        if user:
-            login(request, user)
-            return Response(status=status.HTTP_200_OK)
-        else:
-            return Response(status=status.HTTP_401_UNAUTHORIZED)
-    
-    def get(self, request):
-        if request.user.is_authenticated:
-            return redirect(reverse('home'))
-        return Response(status=status.HTTP_200_OK)
-
-class SignupView(APIView):
-    def post(self, request):
-        email = request.data['email']
-        password = request.data['password']
-        existing = User.objects.filter(email=email).first()
-        if existing:
-            return Response(status=status.HTTP_409_CONFLICT)
-        print(email, password)
-        try:
-            User.objects.create_user(email=email, username=email, password=password)
-            user = authenticate(request, email=email, username=email, password=password)
-            login(request, user)
-        except Exception as e:
-            print(e)
-            return Response(status=status.HTTP_400_BAD_REQUEST)
-        return Response(status=status.HTTP_201_CREATED)
-    
-    def get(self, request):
-        if request.user.is_authenticated:
-            return redirect(reverse('home'))
-        return Response(status=status.HTTP_200_OK)
-
-class LogoutView(APIView):
-    def get(self, request):
-        logout(request)
-        return redirect(reverse('login'))
-
-class HomeView(APIView):
-    def get(self, request):
-        if not request.user.is_authenticated:
-            return redirect(reverse('login'))
-        return Response(status=status.HTTP_200_OK)
     
 
 class UserViewSet(viewsets.ModelViewSet):
