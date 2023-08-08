@@ -1,7 +1,5 @@
 import React from "react";
 import dynamic from "next/dynamic";
-// import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css";
 
 const QuillNoSSRWrapper = dynamic(import("react-quill"), {
   ssr: false,
@@ -9,7 +7,7 @@ const QuillNoSSRWrapper = dynamic(import("react-quill"), {
 });
 const TextEdit = (props) => {
   return (
-    <div className="mb-4">
+    <div className="mb-5">
       <label>{props.title}</label>
       <QuillNoSSRWrapper
         theme="snow"

@@ -147,6 +147,7 @@ body {
   margin-top: 4rem;
   margin-left: 10rem;
   margin-right: 10rem;
+  margin-bottom: 4rem;
 }
 
 .form-input {
@@ -161,16 +162,6 @@ body {
   background-color: #ffff;
 }
 
-/* .text-area > .ql-toolbar .ql-stroke {
-  fill: none;
-  stroke: #fff;
-}
-
-.text-area > .ql-toolbar .ql-fill {
-  fill: #fff;
-  stroke: none;
-} */
-
 .react-datetime-picker > .react-datetime-picker__wrapper {
   padding: 0.375rem 0.75rem;
   border: var(--bs-border-width) solid var(--bs-border-color);
@@ -182,24 +173,6 @@ body {
   flex-direction: row;
   margin-right: 2rem;
 }
-/* 
-.react-datetime-picker svg {
-  stroke: #fff;
-}
-
-.filter-btn {
-  margin-right: 1rem;
-  color: lightgray;
-}
-
-.filter-btn-selected {
-  margin-right: 1rem;
-  color: white;
-}
-
-.text-area > .ql-toolbar .ql-picker {
-  color: #fff;
-} */
 
 .vortex-wrapper {
   display: flex;

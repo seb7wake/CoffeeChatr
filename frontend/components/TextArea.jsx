@@ -3,7 +3,7 @@ import { Form } from "react-bootstrap";
 
 const TextArea = (props) => {
   return (
-    <Form.Group className="mb-4">
+    <Form.Group className="mb-5">
       <Form.Label>{props.title}</Form.Label>
       <Form.Control
         as="textarea"

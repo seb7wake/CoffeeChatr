@@ -1,7 +1,9 @@
 import React from "react";
 import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
+import { useAppContext } from "../context/state";
 
 const NavigationBar = ({ user }) => {
+  const { _, setCurrentUser } = useAppContext();
   return (
     <Navbar bg="dark" data-bs-theme="dark">
       <Container className="m-2 align-items-center">
@@ -17,7 +19,12 @@ const NavigationBar = ({ user }) => {
       <Navbar.Collapse className="justify-content-end">
         <Nav>
           <NavDropdown title={user.email} className="justify-content-end mx-5">
-            <NavDropdown.Item href="/api/auth/logout">Logout</NavDropdown.Item>
+            <NavDropdown.Item
+              href="/api/auth/logout"
+              onClick={() => setCurrentUser(undefined)}
+            >
+              Logout
+            </NavDropdown.Item>
           </NavDropdown>
         </Nav>
       </Navbar.Collapse>

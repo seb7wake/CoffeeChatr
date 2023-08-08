@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Vortex } from "react-loader-spinner";
 import Head from "next/head";
 import { Inter } from "next/font/google";
@@ -9,15 +9,12 @@ import { getChats } from "./api/chats";
 import { createUser, getUser } from "./api/user";
 import FilterMeetings from "../components/FilterMeetings";
 import Spinner from "../components/Spinner";
-
-const inter = Inter({ subsets: ["latin"] });
+import { useAppContext } from "@/context/state";
 
 export default function Home() {
   const { user, error, isLoading } = useUser();
   const [chats, setChats] = useState([]);
-  const [startTime, setStartTime] = useState(undefined);
-  const [endTime, setEndTime] = useState(undefined);
-  const [currentUser, setCurrentUser] = useState(undefined);
+  const { currentUser, setCurrentUser } = useAppContext();
 
   useEffect(() => {
     if (currentUser !== undefined) {
@@ -35,10 +32,9 @@ export default function Home() {
   }, [currentUser]);
 
   useEffect(() => {
-    if (user) {
-      console.log(" ----> user:", user);
+    if (user && currentUser === undefined) {
       const res = getUser(user.email)
-        .catch((error) => {
+        .catch(async () => {
           createUser(user.email).then(async (result) => {
             setCurrentUser(result.data);
           });

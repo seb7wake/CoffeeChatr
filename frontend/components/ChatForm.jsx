@@ -151,7 +151,7 @@ const ChatForm = ({
         handleChange={handleTextInputChange}
         errors={errors}
       />
-      <Form.Group className="mb-4">
+      <Form.Group className="mb-5">
         <label style={{ width: "13rem" }}>Meeting Start Time</label>
         <DateTimePicker
           name="meeting_start_time"

@@ -8,9 +8,11 @@ import NavigationBar from "@/components/NavigationBar";
 import ChatForm from "@/components/ChatForm";
 import LoadingOverlay from "react-loading-overlay";
 import Spinner from "@/components/Spinner";
+import { useAppContext } from "@/context/state";
 
 const Meetings = () => {
   const router = useRouter();
+  const { user, error, isLoading } = useUser();
   const [form, setForm] = useState({
     title: "",
     invitee_name: "",
@@ -21,8 +23,7 @@ const Meetings = () => {
     meeting_notes: "",
     invitee_background: "",
   });
-  const [currentUser, setCurrentUser] = useState(undefined);
-  const { user, error, isLoading } = useUser();
+  const { currentUser, _ } = useAppContext();
   const [errors, setErrors] = useState({
     title: "",
     questions: "",
@@ -31,7 +32,6 @@ const Meetings = () => {
   const [isLoadingQuestions, setIsLoadingQuestions] = useState(false);
 
   useEffect(() => {
-    console.log("yes", router.query.id);
     if (router.query.id) {
       getChat(router.query.id).then((result) => {
         console.log(result);
@@ -41,23 +41,10 @@ const Meetings = () => {
   }, [router]);
 
   useEffect(() => {
-    if (user) {
-      getUser(user.email).then((result) => {
-        if (result?.data) {
-          console.log("result:", result.data);
-          if (result.data.id) {
-            setCurrentUser(result.data);
-          }
-        }
-      });
-    }
-  }, [user]);
-
-  useEffect(() => {
-    if (!isLoading && !user) {
+    if (!isLoading && user && !currentUser) {
       router.replace("/");
     }
-  }, [isLoading]);
+  }, [user]);
 
   const trimEmptyFields = (obj) => {
     let newObj = {};
