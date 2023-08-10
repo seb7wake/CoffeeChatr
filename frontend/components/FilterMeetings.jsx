@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { Container, Button } from "react-bootstrap";
+import { Container, Button, Text } from "react-bootstrap";
 import Item from "./Item";
+import { LuBeanOff } from "react-icons/lu";
 import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
 
@@ -18,7 +19,13 @@ const FilterMeetings = ({ chats }) => {
   }, []);
 
   const filteredMeetings = (meetings) => {
-    if (meetings.length === 0) return <div>No chats yet!</div>;
+    if (meetings.length === 0)
+      return (
+        <div className="d-flex h-100 align-items-center justify-content-center flex-row gap-3">
+          <LuBeanOff size={32} />
+          <h5 className="mx-3 my-0">No coffee chats yet!</h5>
+        </div>
+      );
     return meetings.map((chat) => {
       return <Item key={chat.id} chat={chat} />;
     });
