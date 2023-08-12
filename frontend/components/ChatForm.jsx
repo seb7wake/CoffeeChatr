@@ -174,7 +174,7 @@ const ChatForm = ({
         )}
       </Form.Group>
 
-      <MultiSelect setForm={setForm} />
+      <MultiSelect setForm={setForm} form={form} />
 
       <TextArea
         name="invitee_about"
@@ -215,14 +215,14 @@ const ChatForm = ({
         title="Meeting Questions"
         value={form.questions}
         errors={errors}
-        placeholder="Generate questions to ask the guest by clicking the button above. The list of questions will be based on the guest's description, experience, and education"
+        placeholder="Generate questions to ask the guest by clicking the button above. The list of questions will be based on the guest's description, experience, education, and the goal of the meeting."
         handleChange={handleTextAreaChange}
       />
       <TextEdit
         name="meeting_notes"
         title="Meeting Notes"
         value={form.meeting_notes}
-        placeholder="Enter notes from the meeting"
+        placeholder="Enter notes from the meeting."
         handleChange={handleTextAreaChange}
       />
       <Button type="submit">

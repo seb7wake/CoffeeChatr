@@ -147,12 +147,12 @@ def generate_questions(data):
     if data.get('invitee_industry'):
         industry = data['invitee_industry'] + "industry "
     if data.get('goal'):
-        goal = " The goal of the conversation is " + data['goal'] + "."
+        goal = " The overall goal of the conversation is to " + data['goal'] + "."
     headers = {
         'Content-Type': 'application/json',
         "Authorization": "Bearer " + os.environ.get("OPENAI_API_KEY")
     }
-    content = "List interesting conversation topics and questions to ask during a coffee chat with a " + industry + "professional that has the background specified below in a numbered list." + goal + "\n\n" + profile
+    content = "In HTML format, create interesting conversation questions to bring up during a coffee chat with a " + industry + "professional that has the background specified below." + goal + "\n\n" + profile
     json = get_json(content)
     print('sending request...')
     try:
@@ -160,7 +160,7 @@ def generate_questions(data):
     except KeyError:
         return {"error": "Sorry, I couldn't generate any questions for this profile. Try to limit the amount of information you provide and avoid using images."}
     questions = format_questions(res)
-    return questions
+    return res
 
 def get_json(content):
     return {
@@ -170,10 +170,19 @@ def get_json(content):
     }
 
 def format_questions(res):
-    res = res.replace("\n\n", "").split("\n")
+    # res = res.replace("\n\n", "").split("\n")
+    res = res.split("\n")
     questions = "<ol>"
     for i in range(len(res)):
-        questions += "<li>" + res[i][3:] + "</li>"
+        # sub_points = res[i].split("\n")
+        # if len(sub_points) > 1:
+        #     questions += "<li>" + sub_points[0] + "</li>"
+        #     questions += "<ul>"
+        #     for j in range(1, len(sub_points)):
+        #         questions += "<li>" + sub_points[j] + "</li>"
+        #     questions += "</ul>"
+        # else:
+        questions += "<li>" + res[i] + "</li>"
     questions += "</ol>"
     return questions
 

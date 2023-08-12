@@ -22,6 +22,7 @@ const Meetings = () => {
     questions: "",
     meeting_notes: "",
     invitee_background: "",
+    goal: "",
   });
   const { currentUser, _ } = useAppContext();
   const [errors, setErrors] = useState({
@@ -60,15 +61,28 @@ const Meetings = () => {
       return;
     }
     console.log("submitting form:", form);
-    updateChat(data.id, trimEmptyFields(data)).then(() => {
-      router.push({
-        pathname: "/",
-        query: {
-          show: true,
-          message: "Coffee chat has been updated successfully!",
-        },
+    updateChat(data.id, trimEmptyFields(data))
+      .then(() => {
+        router.push({
+          pathname: "/",
+          query: {
+            show: true,
+            status: "success",
+            message: "Coffee chat has been updated successfully!",
+          },
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+        router.push({
+          pathname: "/",
+          query: {
+            show: true,
+            status: "danger",
+            message: "Something went wrong. Please try again.",
+          },
+        });
       });
-    });
   };
 
   if (!currentUser) return <Spinner />;

@@ -1,6 +1,34 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Select from "react-select";
 import { Form } from "react-bootstrap";
+
+const MultiSelect = (props) => {
+  return (
+    <Form.Group className="mb-5">
+      <label style={{ width: "13rem" }}>The goal of this meeting is...</label>
+      <Select
+        isMulti
+        name="goal"
+        value={
+          props.form.goal
+            ? goalOptions.filter((option) => {
+                return props.form.goal.split(", ").includes(option.value);
+              })
+            : []
+        }
+        options={goalOptions}
+        className="basic-multi-select"
+        classNamePrefix="select"
+        onChange={(values) => {
+          props.setForm((prevState) => ({
+            ...prevState,
+            goal: values.map((item) => item.value).join(", "),
+          }));
+        }}
+      />
+    </Form.Group>
+  );
+};
 
 const goalOptions = [
   {
@@ -28,35 +56,13 @@ const goalOptions = [
     label: "Gaining inspiration and motivation",
   },
   {
-    value: "interview prep for that their company",
-    label: "Interview prep for that their company",
+    value: "interview prep for their current company",
+    label: "Interview prep for their current company",
   },
   {
     value: "learn about skill development in their industry",
     label: "Learn about skill development in their industry",
   },
 ];
-
-const MultiSelect = (props) => {
-  return (
-    <Form.Group className="mb-5">
-      <label style={{ width: "13rem" }}>The goal of this meeting is...</label>
-      <Select
-        isMulti
-        name="goal"
-        options={goalOptions}
-        className="basic-multi-select"
-        classNamePrefix="select"
-        onChange={(values) => {
-          props.setForm((prevState) => ({
-            ...prevState,
-            goal: values.map((item) => item.value).join(", "),
-          }));
-          console.log(values.map((item) => item.value).join(", "));
-        }}
-      />
-    </Form.Group>
-  );
-};
 
 export default MultiSelect;

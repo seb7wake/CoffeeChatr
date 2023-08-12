@@ -16,6 +16,7 @@ const Home = (props) => {
   const [chats, setChats] = useState([]);
   const [show, setShow] = useState(props.router.query.show ?? false);
   const [message, setMessage] = useState(props.router.query.message ?? "");
+  const [status, setStatus] = useState(props.router.query.status ?? "");
   const { currentUser, setCurrentUser } = useAppContext();
 
   useEffect(() => {
@@ -48,7 +49,7 @@ const Home = (props) => {
         <Toast
           onClose={() => setShow(false)}
           show={show}
-          bg="success"
+          bg={status}
           delay={3000}
           className="w-100"
           autohide
