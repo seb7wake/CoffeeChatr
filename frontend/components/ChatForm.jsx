@@ -2,8 +2,9 @@ import TextArea from "@/components/TextArea";
 import TextInput from "@/components/TextInput";
 import { Form } from "react-bootstrap";
 import React, { useState, useEffect, useRef } from "react";
+import MultiSelect from "@/components/MultiSelect";
 import { generateQuestions, createChat } from "@/pages/api/chats";
-import { Container, Button } from "react-bootstrap";
+import { Container, Button, Col, Dropdown } from "react-bootstrap";
 import TextEdit from "@/components/TextEdit";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Popover from "react-bootstrap/Popover";
@@ -31,6 +32,7 @@ const ChatForm = ({
     invitee_education: "",
     invitee_experience: "",
     invitee_about: "",
+    goal: "",
   });
 
   useEffect(() => {
@@ -80,6 +82,7 @@ const ChatForm = ({
       invitee_experience: form.invitee_experience,
       invitee_education: form.invitee_education,
       invitee_industry: form.invitee_industry ?? "",
+      goal: form.goal ?? "",
     };
     setIsLoadingQuestions(true);
     generateQuestions(invitee_info).then((data) => {
@@ -107,8 +110,8 @@ const ChatForm = ({
         questions for your meeting:
         <ul>
           <li>Guest Description</li>
-          <li>Experience</li>
-          <li>Education</li>
+          <li>Guest Experience</li>
+          <li>Guest Education</li>
         </ul>
       </Popover.Body>
     </Popover>
@@ -170,6 +173,9 @@ const ChatForm = ({
           <div className="error">{errors.meeting_start_time}</div>
         )}
       </Form.Group>
+
+      <MultiSelect setForm={setForm} />
+
       <TextArea
         name="invitee_about"
         title="Description of Guest"

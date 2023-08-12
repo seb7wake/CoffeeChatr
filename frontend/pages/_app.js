@@ -4,10 +4,10 @@ import { AppWrapper } from "@/context/state";
 
 export default function App({ Component, pageProps }) {
   return (
-    <AppWrapper>
-      <UserProvider>
+    <UserProvider>
+      <AppWrapper>
         <Component {...pageProps} />
-      </UserProvider>
-    </AppWrapper>
+      </AppWrapper>
+    </UserProvider>
   );
 }

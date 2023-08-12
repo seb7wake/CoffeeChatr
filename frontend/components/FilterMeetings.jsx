@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { Container, Button, Text } from "react-bootstrap";
+import { Container, Button, Image } from "react-bootstrap";
 import Item from "./Item";
-import { LuBeanOff } from "react-icons/lu";
+import { TbCoffeeOff, TbCoffee } from "react-icons/tb";
+import { GiCoffeeBeans } from "react-icons/gi";
 import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
+import logo from "./coffee-chat.png";
 
 const FilterMeetings = ({ chats }) => {
   const [filter, setFilter] = useState("");
@@ -19,13 +21,21 @@ const FilterMeetings = ({ chats }) => {
   }, []);
 
   const filteredMeetings = (meetings) => {
-    if (meetings.length === 0)
+    if (chats.length === 0) {
       return (
-        <div className="d-flex h-100 align-items-center justify-content-center flex-row gap-3">
-          <LuBeanOff size={32} />
-          <h5 className="mx-3 my-0">No coffee chats yet!</h5>
+        <div className="empty-container w-100">
+          <img src={require(`./coffee-chat.png`)} alt="coffee chat" />
+          <h5 className="mx-3 my-0">Create your first coffee chat</h5>
         </div>
       );
+    } else if (meetings.length === 0) {
+      return (
+        <div className="d-flex justify-content-center align-items-center flex-row empty-container">
+          <TbCoffeeOff size={32} />
+          <h5 className="mx-3 my-0">No coffee chats!</h5>
+        </div>
+      );
+    }
     return meetings.map((chat) => {
       return <Item key={chat.id} chat={chat} />;
     });

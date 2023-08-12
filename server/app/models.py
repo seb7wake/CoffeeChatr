@@ -13,6 +13,7 @@ class Meeting(models.Model):
     invitee_education = models.TextField(default="", blank=True)
     invitee_about = models.TextField(default="", blank=True)
     questions = models.TextField(default="", blank=True)
+    goal = models.TextField(default="", blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     meeting_start_time = models.DateTimeField()

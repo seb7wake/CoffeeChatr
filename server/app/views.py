@@ -135,22 +135,24 @@ def linkedin_scrape(profile_url):
     driver.quit()
     return "education:\n" + education + "\n\nabout:\n" + about + "\n\nexperience:\n" + experience
 
-def generate_questions(background):
+def generate_questions(data):
     profile = ""
-    if background.get('invitee_about'):
-        profile += "about:\n" + background['invitee_about'] + "\n\n"
-    if background.get('invitee_experience'):
-        profile += "experience:\n" + background['invitee_experience'] + "\n\n"
-    if background.get('invitee_education'):
-        profile += "education:\n" + background['invitee_education'] + "\n\n"
+    if data.get('invitee_about'):
+        profile += "about:\n" + data['invitee_about'] + "\n\n"
+    if data.get('invitee_experience'):
+        profile += "experience:\n" + data['invitee_experience'] + "\n\n"
+    if data.get('invitee_education'):
+        profile += "education:\n" + data['invitee_education'] + "\n\n"
     industry = ""
-    if background.get('invitee_industry'):
-        industry = background['invitee_industry'] + " industry "
+    if data.get('invitee_industry'):
+        industry = data['invitee_industry'] + "industry "
+    if data.get('goal'):
+        goal = " The goal of the conversation is " + data['goal'] + "."
     headers = {
         'Content-Type': 'application/json',
         "Authorization": "Bearer " + os.environ.get("OPENAI_API_KEY")
     }
-    content = "Create coffee chat conversation questions to ask a " + industry + "professional with the following background:\n\n" + profile
+    content = "List interesting conversation topics and questions to ask during a coffee chat with a " + industry + "professional that has the background specified below in a numbered list." + goal + "\n\n" + profile
     json = get_json(content)
     print('sending request...')
     try:

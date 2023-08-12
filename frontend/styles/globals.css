@@ -97,9 +97,9 @@ body {
 
 .auth-title {
   font-size: 4rem;
-  margin-top: 0;
+  margin-top: -10rem;
   display: flex;
-  margin-bottom: 5rem;
+  margin-bottom: 4rem;
   /* width: 100%; */
   flex-direction: row;
 }
@@ -122,8 +122,8 @@ body {
     0.15s fill;
   font-weight: 600;
 
-  background-color: #d9d9d9;
-  color: #182747;
+  background-color: #1a120b;
+  color: white;
 }
 
 .auth-container {
@@ -159,7 +159,8 @@ body {
 }
 
 .auth-btn:hover {
-  background-color: #ffff;
+  background-color: white;
+  color: #1a120b;
 }
 
 .react-datetime-picker > .react-datetime-picker__wrapper {
@@ -180,4 +181,9 @@ body {
   height: 100vh;
   margin-left: auto;
   margin-right: auto;
+}
+
+.empty-container {
+  height: 100vh;
+  margin-top: 8rem;
 }

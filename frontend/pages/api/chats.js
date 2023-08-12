@@ -8,7 +8,7 @@ export const getChats = async (id) => {
   return data;
 };
 
-export const generateQuestions = async (background) => {
+export const generateQuestions = async (meetingData) => {
   let response = await fetch(
     `${process.env.NEXT_PUBLIC_SERVER_URL}/generate/`,
     {
@@ -16,7 +16,7 @@ export const generateQuestions = async (background) => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(background),
+      body: JSON.stringify(meetingData),
     }
   );
   console.log(response);

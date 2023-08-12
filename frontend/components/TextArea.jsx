@@ -10,6 +10,7 @@ const TextArea = (props) => {
         type="text"
         name={props.name}
         required={props.required}
+        placeholder={props.placeholder ?? ""}
         value={props.value}
         onChange={props.handleChange}
       />

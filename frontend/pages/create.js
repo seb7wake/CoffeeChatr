@@ -10,36 +10,16 @@ import "react-calendar/dist/Calendar.css";
 import ChatForm from "@/components/ChatForm";
 import LoadingOverlay from "react-loading-overlay";
 import Spinner from "@/components/Spinner";
+import { useAppContext } from "@/context/state";
 
 const Create = () => {
-  const [currentUser, setCurrentUser] = useState(undefined);
+  const { currentUser, _ } = useAppContext();
   const [errors, setErrors] = useState({
     title: "",
     questions: "",
     meeting_start_time: "",
   });
-  const { user, error, isLoading } = useUser();
   const [isLoadingQuestions, setIsLoadingQuestions] = useState(false);
-
-  useEffect(() => {
-    if (user) {
-      console.log("user:", user);
-      getUser(user.email).then((result) => {
-        if (result?.data) {
-          console.log("result:", result.data);
-          if (result.data.id) {
-            setCurrentUser(result.data);
-          }
-        }
-      });
-    }
-  }, [user]);
-
-  useEffect(() => {
-    if (!isLoading && !user) {
-      Router.replace("/");
-    }
-  }, [isLoading]);
 
   const handleSubmit = (event, form) => {
     event.preventDefault();
@@ -74,17 +54,17 @@ const Create = () => {
     return newObj;
   };
 
-  if (isLoading || !currentUser) return <Spinner />;
-  if (error) return <div>{error.message}</div>;
+  if (!currentUser) return <Spinner />;
 
   return (
     <LoadingOverlay
       active={isLoadingQuestions}
       spinner
+      trigger={["hover", "focus"]}
       text="Generating questions... This could take a minute."
     >
       <div>
-        <NavigationBar isCreate={true} user={user} />
+        <NavigationBar isCreate={true} user={currentUser} />
         <h2 className="chat-title">Create Coffee Chat</h2>
         <div className="form-container">
           <ChatForm

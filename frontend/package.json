@@ -20,6 +20,7 @@
     "react-icons": "^4.10.1",
     "react-loader-spinner": "^5.3.4",
     "react-loading-overlay": "^1.0.1",
-    "react-quill": "^2.0.0"
+    "react-quill": "^2.0.0",
+    "react-select": "^5.7.4"
   }
 }

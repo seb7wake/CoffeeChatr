@@ -40,12 +40,6 @@ const Meetings = () => {
     }
   }, [router]);
 
-  useEffect(() => {
-    if (!isLoading && user && !currentUser) {
-      router.replace("/");
-    }
-  }, [user]);
-
   const trimEmptyFields = (obj) => {
     let newObj = {};
     Object.keys(obj).forEach((key) => {
@@ -67,14 +61,17 @@ const Meetings = () => {
     }
     console.log("submitting form:", form);
     updateChat(data.id, trimEmptyFields(data)).then(() => {
-      console.log("updated form");
-      router.push(`/`);
+      router.push({
+        pathname: "/",
+        query: {
+          show: true,
+          message: "Coffee chat has been updated successfully!",
+        },
+      });
     });
   };
 
-  if (isLoading || !currentUser || !form) return <Spinner />;
-
-  if (error) return <div>{error.message}</div>;
+  if (!currentUser) return <Spinner />;
 
   return (
     <LoadingOverlay
