@@ -149,7 +149,7 @@ body {
 }
 
 .form-container {
-  margin: 4% 20%;
+  margin: 3% 20%;
 }
 
 @media (max-width: 768px) {
@@ -168,6 +168,19 @@ body {
   .popover {
     display: none;
   }
+  .form-container {
+    margin-bottom: 20%;
+    margin-top: 10%;
+    margin-left: 10%;
+    margin-right: 10%;
+  }
+  .coffee-chat-img {
+    width: 10rem;
+    height: 10rem;
+  }
+  .empty-cta {
+    font-size: 1rem;
+  }
 }
 
 @media (min-width: 768px) {
@@ -175,6 +188,23 @@ body {
     justify-content: flex-end;
     margin-right: 2rem;
   }
+  .coffee-chat-img {
+    width: 15rem;
+    height: 15rem;
+  }
+}
+
+.empty-cta {
+  background-color: white;
+  color: #1a120b;
+  border: #1a120b 2px solid;
+}
+
+.empty-cta:hover,
+.empty-cta:active {
+  background-color: #1a120b;
+  color: white;
+  border: white 2px solid;
 }
 
 .form-input {
@@ -212,5 +242,4 @@ body {
 
 .empty-container {
   height: 100vh;
-  margin-top: 8rem;
 }

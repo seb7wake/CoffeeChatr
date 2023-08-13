@@ -1,30 +1,44 @@
 import React, { useEffect, useState } from "react";
-import { Container, Button, Image } from "react-bootstrap";
 import Item from "./Item";
+import Search from "./Search";
 import { TbCoffeeOff, TbCoffee } from "react-icons/tb";
-import { GiCoffeeBeans } from "react-icons/gi";
+import { Image, Button } from "react-bootstrap";
 import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
-import logo from "./coffee-chat.png";
+import ChatLogo from "../public/chat.png";
+import NextLink from "next/link";
 
 const FilterMeetings = ({ chats }) => {
   const [filter, setFilter] = useState("");
   const [time, setTime] = useState(new Date());
   const [filteredChats, setFilteredChats] = useState(chats);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setTime(new Date());
-    }, 100000);
-
-    return () => clearInterval(interval);
-  }, []);
+  const [searchTerm, setSearchTerm] = useState();
 
   const filteredMeetings = (meetings) => {
+    return (
+      <div>
+        <div className="d-flex justify-content-center">
+          <Image
+            src={ChatLogo.src}
+            className="coffee-chat-img"
+            alt="coffee chat"
+          />
+        </div>
+        <div className="d-flex justify-content-center ">
+          <Button
+            className="align-items-center rounded-pill empty-cta"
+            size="lg"
+            href="/create"
+          >
+            Start brewing meaningful conversations
+          </Button>
+        </div>
+      </div>
+    );
     if (chats.length === 0) {
       return (
         <div className="empty-container w-100">
-          <img src={require(`./coffee-chat.png`)} alt="coffee chat" />
+          <Image src={ChatLogo.src} alt="coffee chat" />
           <h5 className="mx-3 my-0">Create your first coffee chat</h5>
         </div>
       );
@@ -36,15 +50,27 @@ const FilterMeetings = ({ chats }) => {
         </div>
       );
     }
+    if (searchTerm) {
+      meetings = meetings.filter((chat) => {
+        return (
+          chat.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          chat.invitee_name.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+      });
+    }
     return meetings.map((chat) => {
       return <Item key={chat.id} chat={chat} />;
     });
   };
 
+  const handleSearch = (searchTerm) => {
+    setSearchTerm(searchTerm);
+  };
+
   return (
-    <div className="mx-5 mt-3">
-      <h2>Coffee Chats</h2>
-      {/* <div className="filter-container"> */}
+    <div className="mt-4 container">
+      <h2 className="mb-5">Coffee Chats</h2>
+      <Search handleSearch={handleSearch} />
       <Tabs defaultActiveKey="all" variant="underline" className="mb-3 h4 mt-4">
         <Tab eventKey="all" title="All">
           {filteredMeetings(chats)}

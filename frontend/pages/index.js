@@ -18,9 +18,11 @@ const Home = (props) => {
   const [message, setMessage] = useState(props.router.query.message ?? "");
   const [status, setStatus] = useState(props.router.query.status ?? "");
   const { currentUser, setCurrentUser } = useAppContext();
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (currentUser !== undefined) {
+      setLoading(true);
       getChats(currentUser.id).then((result) => {
         console.log(result);
         setChats(
@@ -30,6 +32,7 @@ const Home = (props) => {
               Date.parse(a.meeting_start_time)
           )
         );
+        setLoading(false);
       });
     }
   }, [currentUser]);
@@ -38,7 +41,7 @@ const Home = (props) => {
     console.log(props.router.query);
   }, [props.router.query]);
 
-  if (!currentUser) return <Spinner />;
+  if (!currentUser || loading) return <Spinner />;
 
   return (
     <>
