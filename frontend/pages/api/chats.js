@@ -52,12 +52,16 @@ export const createChat = async (id, chat) => {
 };
 
 export const deleteChat = async (id) => {
-  await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/meetings/${id}/`, {
-    method: "DELETE",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_SERVER_URL}/api/meetings/${id}/`,
+    {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
+  return response;
 };
 
 export const updateChat = async (id, chat) => {

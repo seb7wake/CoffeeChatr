@@ -9,6 +9,7 @@ import NavigationBar from "@/components/NavigationBar";
 import { getChats } from "./api/chats";
 import { createUser, getUser } from "./api/user";
 import FilterMeetings from "../components/FilterMeetings";
+import { deleteChat } from "../pages/api/chats";
 import Spinner from "../components/Spinner";
 import { useAppContext } from "@/context/state";
 
@@ -18,11 +19,10 @@ const Home = (props) => {
   const [message, setMessage] = useState(props.router.query.message ?? "");
   const [status, setStatus] = useState(props.router.query.status ?? "");
   const { currentUser, setCurrentUser } = useAppContext();
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (currentUser !== undefined) {
-      setLoading(true);
       getChats(currentUser.id).then((result) => {
         console.log(result);
         setChats(
@@ -40,6 +40,20 @@ const Home = (props) => {
   useEffect(() => {
     console.log(props.router.query);
   }, [props.router.query]);
+
+  const remove = async (event, id) => {
+    event.preventDefault();
+    const res = await deleteChat(id);
+    if (res.status !== 204) {
+      setMessage("Chat could not be deleted.");
+      setStatus("danger");
+    } else {
+      setChats(chats.filter((chat) => chat.id !== id));
+      setStatus("success");
+      setMessage("Chat deleted successfully!");
+    }
+    setShow(true);
+  };
 
   if (!currentUser || loading) return <Spinner />;
 
@@ -67,7 +81,11 @@ const Home = (props) => {
       <main>
         <>
           <NavigationBar isCreate={false} user={currentUser} />
-          <FilterMeetings chats={chats} setShowToast={setShow} />
+          <FilterMeetings
+            chats={chats}
+            setShowToast={setShow}
+            remove={remove}
+          />
         </>
       </main>
     </>

@@ -152,7 +152,7 @@ def generate_questions(data):
         'Content-Type': 'application/json',
         "Authorization": "Bearer " + os.environ.get("OPENAI_API_KEY")
     }
-    content = "In HTML format, create interesting conversation questions to bring up during a coffee chat with a " + industry + "professional that has the background specified below." + goal + "\n\n" + profile
+    content = "In an HTML format list with no title or head, create interesting conversation questions to bring up during a coffee chat with a " + industry + "professional that has the background specified below." + goal + "\n\n" + profile
     json = get_json(content)
     print('sending request...')
     try:

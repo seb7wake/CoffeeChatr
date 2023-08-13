@@ -127,8 +127,13 @@ body {
     0.15s fill;
   font-weight: 600;
 
-  background-color: #1a120b;
+  color: #1a120b;
+  background-color: white;
+}
+
+.auth-btn:hover {
   color: white;
+  background-color: #1a120b;
 }
 
 .auth-container {
@@ -146,10 +151,6 @@ body {
 .chat-title {
   margin-top: 4%;
   margin-left: 20%;
-}
-
-.form-container {
-  margin: 3% 20%;
 }
 
 @media (max-width: 768px) {
@@ -192,12 +193,19 @@ body {
     width: 15rem;
     height: 15rem;
   }
+  .form-container {
+    padding: 3% 20%;
+  }
 }
 
 .empty-cta {
   background-color: white;
   color: #1a120b;
   border: #1a120b 2px solid;
+}
+
+.react-datetime-picker__inputGroup__input:invalid {
+  background-color: white !important;
 }
 
 .empty-cta:hover,
@@ -213,11 +221,6 @@ body {
 
 .error {
   color: red;
-}
-
-.auth-btn:hover {
-  background-color: white;
-  color: #1a120b;
 }
 
 .react-datetime-picker > .react-datetime-picker__wrapper {
@@ -242,4 +245,5 @@ body {
 
 .empty-container {
   height: 100vh;
+  margin-top: -20%;
 }

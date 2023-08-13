@@ -8,48 +8,11 @@ import Tabs from "react-bootstrap/Tabs";
 import ChatLogo from "../public/chat.png";
 import NextLink from "next/link";
 
-const FilterMeetings = ({ chats }) => {
-  const [filter, setFilter] = useState("");
+const FilterMeetings = ({ chats, remove }) => {
   const [time, setTime] = useState(new Date());
-  const [filteredChats, setFilteredChats] = useState(chats);
   const [searchTerm, setSearchTerm] = useState();
 
   const filteredMeetings = (meetings) => {
-    return (
-      <div>
-        <div className="d-flex justify-content-center">
-          <Image
-            src={ChatLogo.src}
-            className="coffee-chat-img"
-            alt="coffee chat"
-          />
-        </div>
-        <div className="d-flex justify-content-center ">
-          <Button
-            className="align-items-center rounded-pill empty-cta"
-            size="lg"
-            href="/create"
-          >
-            Start brewing meaningful conversations
-          </Button>
-        </div>
-      </div>
-    );
-    if (chats.length === 0) {
-      return (
-        <div className="empty-container w-100">
-          <Image src={ChatLogo.src} alt="coffee chat" />
-          <h5 className="mx-3 my-0">Create your first coffee chat</h5>
-        </div>
-      );
-    } else if (meetings.length === 0) {
-      return (
-        <div className="d-flex justify-content-center align-items-center flex-row empty-container">
-          <TbCoffeeOff size={32} />
-          <h5 className="mx-3 my-0">No coffee chats!</h5>
-        </div>
-      );
-    }
     if (searchTerm) {
       meetings = meetings.filter((chat) => {
         return (
@@ -58,8 +21,30 @@ const FilterMeetings = ({ chats }) => {
         );
       });
     }
+    if (meetings.length === 0) {
+      return (
+        <div>
+          <div className="d-flex justify-content-center">
+            <Image
+              src={ChatLogo.src}
+              className="coffee-chat-img"
+              alt="coffee chat"
+            />
+          </div>
+          <div className="d-flex justify-content-center ">
+            <Button
+              className="align-items-center rounded-pill empty-cta"
+              size="lg"
+              href="/create"
+            >
+              Start brewing meaningful conversations
+            </Button>
+          </div>
+        </div>
+      );
+    }
     return meetings.map((chat) => {
-      return <Item key={chat.id} chat={chat} />;
+      return <Item key={chat.id} chat={chat} remove={remove} />;
     });
   };
 

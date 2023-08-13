@@ -92,6 +92,7 @@ const Meetings = () => {
       active={isLoadingQuestions}
       spinner
       text="Generating questions... This could take a minute."
+      style={{ width: "100%", height: "100%" }}
     >
       <div>
         <NavigationBar isCreate={false} user={user} />
