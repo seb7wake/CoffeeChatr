@@ -103,16 +103,17 @@ const ChatForm = ({
   };
 
   const popover = (
-    <Popover>
+    <Popover className="popover">
       <Popover.Header as="h3">Generating Questions using AI</Popover.Header>
       <Popover.Body>
-        Complete at least one of the following fields before generating
-        questions for your meeting:
+        The list of questions generated will be based on:
         <ul>
+          <li>Goal of the Meeting</li>
           <li>Guest Description</li>
           <li>Guest Experience</li>
           <li>Guest Education</li>
         </ul>
+        Please provide as much information as possible for best results.
       </Popover.Body>
     </Popover>
   );
@@ -215,7 +216,7 @@ const ChatForm = ({
         title="Meeting Questions"
         value={form.questions}
         errors={errors}
-        placeholder="Generate questions to ask the guest by clicking the button above. The list of questions will be based on the guest's description, experience, education, and the goal of the meeting."
+        placeholder="Generate questions to ask the guest by clicking the button above."
         handleChange={handleTextAreaChange}
       />
       <TextEdit

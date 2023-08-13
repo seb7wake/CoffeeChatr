@@ -16,9 +16,9 @@ const NavigationBar = ({ user }) => {
           <Nav.Link href="/create">Create chat</Nav.Link>
         </Nav>
       </Container>
-      <Navbar.Collapse className="justify-content-end">
+      <Navbar.Collapse>
         <Nav>
-          <NavDropdown title={user.email} className="justify-content-end mx-5">
+          <NavDropdown title={user.email}>
             <NavDropdown.Item
               href="/api/auth/logout"
               onClick={() => setCurrentUser(undefined)}

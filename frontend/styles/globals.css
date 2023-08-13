@@ -62,11 +62,16 @@ body {
   color: inherit;
 }
 
-.chat-item {
+.chat-item,
+.chat-item:active {
   border: 1px solid #ffff;
   border-radius: 2rem;
   padding: 1rem 3rem;
   margin: 1rem;
+}
+
+.navbar-expand {
+  flex-wrap: wrap;
 }
 
 .logout {
@@ -139,15 +144,37 @@ body {
 }
 
 .chat-title {
-  margin-top: 3rem;
-  margin-left: 10rem;
+  margin-top: 4%;
+  margin-left: 20%;
 }
 
 .form-container {
-  margin-top: 4rem;
-  margin-left: 10rem;
-  margin-right: 10rem;
-  margin-bottom: 4rem;
+  margin: 4% 20%;
+}
+
+@media (max-width: 768px) {
+  .navbar-nav {
+    flex-direction: row;
+    width: 55%;
+    font-size: 0.95rem;
+    margin-right: 0 !important;
+  }
+  .navbar-brand {
+    margin-right: 0 !important;
+  }
+  .navbar-collapse {
+    margin-left: 5%;
+  }
+  .popover {
+    display: none;
+  }
+}
+
+@media (min-width: 768px) {
+  .navbar-collapse {
+    justify-content: flex-end;
+    margin-right: 2rem;
+  }
 }
 
 .form-input {
