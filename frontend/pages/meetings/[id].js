@@ -96,7 +96,9 @@ const Meetings = () => {
     >
       <div>
         <NavigationBar isCreate={false} user={user} />
-        <h2 className="chat-title">Update Coffee Chat</h2>
+        <h2 className="chat-title text-2xl font-semibold">
+          Update Coffee Chat
+        </h2>
         <div className="form-container">
           <ChatForm
             onSubmit={onSubmit}

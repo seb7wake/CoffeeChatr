@@ -84,7 +84,9 @@ const Create = () => {
     >
       <div>
         <NavigationBar isCreate={true} user={currentUser} />
-        <h2 className="chat-title">Create Coffee Chat</h2>
+        <h2 className="chat-title text-2xl font-semibold">
+          Create Coffee Chat
+        </h2>
         <div className="form-container">
           <ChatForm
             onSubmit={handleSubmit}

@@ -33,7 +33,7 @@ const FilterMeetings = ({ chats, remove }) => {
           </div>
           <div className="d-flex justify-content-center ">
             <Button
-              className="align-items-center rounded-pill empty-cta"
+              className="align-items-center rounded-pill pill-btn"
               size="lg"
               href="/create"
             >
@@ -53,8 +53,7 @@ const FilterMeetings = ({ chats, remove }) => {
   };
 
   return (
-    <div className="mt-4 container">
-      <h2 className="mb-5">Coffee Chats</h2>
+    <div className="mt-5 container pt-3">
       <Search handleSearch={handleSearch} />
       <Tabs defaultActiveKey="all" variant="underline" className="mb-3 h4 mt-4">
         <Tab eventKey="all" title="All">

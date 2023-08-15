@@ -9,7 +9,7 @@ const Item = ({ chat, remove }) => {
   return (
     <NextLink href={`/meetings/${chat.id}`} className="item-link">
       <Card border="dark" className="mb-3 item p-2">
-        <Card.Body className="d-flex flex-col align-items-center justify-content-between">
+        <Card.Body className="d-flex flex-row align-items-center justify-content-between">
           <div>
             <Card.Title>{chat.title}</Card.Title>
             <Card.Text>

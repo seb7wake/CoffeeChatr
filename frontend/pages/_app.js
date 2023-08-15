@@ -6,7 +6,9 @@ export default function App({ Component, pageProps }) {
   return (
     <UserProvider>
       <AppWrapper>
-        <Component {...pageProps} />
+        <main className="scroll-smooth antialiased [font-feature-settings:'ss01']">
+          <Component {...pageProps} />
+        </main>
       </AppWrapper>
     </UserProvider>
   );

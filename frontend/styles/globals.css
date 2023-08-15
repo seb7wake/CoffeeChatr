@@ -1,3 +1,16 @@
+@import "tailwindcss/base";
+
+@import "tailwindcss/components";
+
+@import "tailwindcss/utilities";
+
+#gradient-canvas {
+  --gradient-color-1: #bde1ff;
+  --gradient-color-2: #6ca0f4;
+  --gradient-color-3: #e2d8ee;
+  --gradient-color-4: #94c8ff;
+}
+
 .navbar-container {
   background-color: #1a120b;
   color: white;
@@ -38,28 +51,6 @@ body {
   width: 100%;
   flex-direction: row;
   justify-content: flex-end;
-}
-
-.create-chat-selected {
-  margin-right: 2rem;
-  color: inherit;
-}
-
-.view-chats-selected {
-  margin-right: 2rem;
-  color: inherit;
-}
-
-.view-chats-unselected {
-  margin-right: 2rem;
-  text-decoration: none;
-  color: inherit;
-}
-
-.create-chat-unselected {
-  margin-right: 2rem;
-  text-decoration: none;
-  color: inherit;
 }
 
 .chat-item,
@@ -110,19 +101,15 @@ body {
 }
 
 .auth-btn {
-  /* display: inline-block; */
   box-sizing: border-box;
   height: 4rem;
   line-height: 3.5rem;
   padding: 0px 4rem;
   border-radius: 999em;
-  /* color: #1e90ff; */
   font-size: 1.4rem;
   vertical-align: bottom;
   white-space: nowrap;
   border: 2px solid #3c2a21;
-  /* font-family: lato; */
-  /* letter-spacing: 2px; */
   transition: 0.15s background-color, 0.15s border-color, 0.15s color,
     0.15s fill;
   font-weight: 600;
@@ -169,6 +156,9 @@ body {
   .popover {
     display: none;
   }
+  .pill-btn {
+    font-size: 0.8rem;
+  }
   .form-container {
     margin-bottom: 20%;
     margin-top: 10%;
@@ -198,21 +188,8 @@ body {
   }
 }
 
-.empty-cta {
-  background-color: white;
-  color: #1a120b;
-  border: #1a120b 2px solid;
-}
-
 .react-datetime-picker__inputGroup__input:invalid {
   background-color: white !important;
-}
-
-.empty-cta:hover,
-.empty-cta:active {
-  background-color: #1a120b;
-  color: white;
-  border: white 2px solid;
 }
 
 .form-input {
@@ -246,4 +223,89 @@ body {
 .empty-container {
   height: 100vh;
   margin-top: -20%;
+}
+
+.pill-btn {
+  background-color: white;
+  color: #1a120b;
+  border: #1a120b 2px solid;
+}
+.pill-btn:hover,
+.pill-btn:active {
+  background-color: #1a120b;
+  color: white;
+  border: white 2px solid;
+}
+
+.wrapper {
+  height: 3rem;
+  width: 100%;
+  left: 0;
+  right: 0;
+  border-color: #1a120b;
+  top: 0;
+  bottom: 0;
+  background: linear-gradient(
+    124deg,
+    #ff2400,
+    #e81d1d,
+    #e8b71d,
+    #e3e81d,
+    #1de840,
+    #1ddde8,
+    #2b1de8,
+    #dd00f3,
+    #dd00f3
+  );
+  background-size: 1000% 1000%;
+
+  -webkit-animation: rainbow 18s ease infinite;
+  -z-animation: rainbow 18s ease infinite;
+  -o-animation: rainbow 18s ease infinite;
+  animation: rainbow 18s ease infinite;
+}
+
+@-webkit-keyframes rainbow {
+  0% {
+    background-position: 0% 82%;
+  }
+  50% {
+    background-position: 100% 19%;
+  }
+  100% {
+    background-position: 0% 82%;
+  }
+}
+@-moz-keyframes rainbow {
+  0% {
+    background-position: 0% 82%;
+  }
+  50% {
+    background-position: 100% 19%;
+  }
+  100% {
+    background-position: 0% 82%;
+  }
+}
+@-o-keyframes rainbow {
+  0% {
+    background-position: 0% 82%;
+  }
+  50% {
+    background-position: 100% 19%;
+  }
+  100% {
+    background-position: 0% 82%;
+  }
+}
+@keyframes rainbow {
+  0% {
+    background-position: 0% 82%;
+  }
+  50% {
+    background-position: 100% 19%;
+  }
+  100% {
+    background-position: 0% 82%;
+  }
 }

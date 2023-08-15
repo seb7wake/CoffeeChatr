@@ -137,13 +137,14 @@ def linkedin_scrape(profile_url):
 
 def generate_questions(data):
     profile = ""
+    industry = ""
+    goal = ""
     if data.get('invitee_about'):
         profile += "about:\n" + data['invitee_about'] + "\n\n"
     if data.get('invitee_experience'):
         profile += "experience:\n" + data['invitee_experience'] + "\n\n"
     if data.get('invitee_education'):
         profile += "education:\n" + data['invitee_education'] + "\n\n"
-    industry = ""
     if data.get('invitee_industry'):
         industry = data['invitee_industry'] + "industry "
     if data.get('goal'):
@@ -152,7 +153,9 @@ def generate_questions(data):
         'Content-Type': 'application/json',
         "Authorization": "Bearer " + os.environ.get("OPENAI_API_KEY")
     }
+    print(data.get('invitee_industry'))
     content = "In an HTML format list with no title or head, create interesting conversation questions to bring up during a coffee chat with a " + industry + "professional that has the background specified below." + goal + "\n\n" + profile
+    print(content)
     json = get_json(content)
     print('sending request...')
     try:

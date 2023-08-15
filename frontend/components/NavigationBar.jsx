@@ -13,11 +13,10 @@ const NavigationBar = ({ user }) => {
           className="d-flex flex-row align-items-center mx-1"
         >
           <TbCoffee size={36} />
-          <h3 className="m-0 mx-2">CoffeeChatr</h3>
+          <h3 className="ml-2 mr-5 text-2xl font-semibold">CoffeeChatr</h3>
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Nav className="me-auto">
-          <Nav.Link href="/">View chats</Nav.Link>
           <Nav.Link href="/create">Create chat</Nav.Link>
         </Nav>
       </Container>

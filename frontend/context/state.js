@@ -24,7 +24,7 @@ export function AppWrapper({ children }) {
           }
         });
     } else if (!isLoading && !user) {
-      Router.push("/authenticate");
+      Router.push("/landing");
     }
   }, [user, isLoading]);
 

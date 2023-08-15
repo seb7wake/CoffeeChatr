@@ -133,7 +133,7 @@ const ChatForm = ({
       />
       <TextInput
         name="invitee_name"
-        title={"Invitee Name"}
+        title={"Guest Name"}
         className="form-input"
         value={form.invitee_name}
         handleChange={handleTextInputChange}
@@ -149,7 +149,7 @@ const ChatForm = ({
           /> */}
       <TextInput
         name="invitee_industry"
-        title={"Invitee Industry"}
+        title={"Guest Industry"}
         className="form-input"
         value={form.invitee_industry}
         handleChange={handleTextInputChange}
@@ -205,7 +205,7 @@ const ChatForm = ({
       />
       <OverlayTrigger trigger="hover" placement="right" overlay={popover}>
         <Button
-          className="generate-questions-button mb-2"
+          className="wrapper mb-4 mt-3 rounded-pill text-lg font-semibold"
           onClick={getQuestions}
         >
           Generate Meeting Questions
@@ -215,18 +215,20 @@ const ChatForm = ({
         name="questions"
         title="Meeting Questions"
         value={form.questions}
+        className="mb-5"
         errors={errors}
-        placeholder="Generate questions to ask the guest by clicking the button above."
+        placeholder="Generate questions to ask your guest by clicking the button above."
         handleChange={handleTextAreaChange}
       />
       <TextEdit
         name="meeting_notes"
         title="Meeting Notes"
+        className="mb-5"
         value={form.meeting_notes}
         placeholder="Enter notes from the meeting."
         handleChange={handleTextAreaChange}
       />
-      <Button type="submit">
+      <Button type="submit" className="primary">
         {existingMeeting ? "Update" : "Create"} Coffee Chat
       </Button>
     </Form>

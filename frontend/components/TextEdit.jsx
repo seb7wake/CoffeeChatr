@@ -8,7 +8,7 @@ const QuillNoSSRWrapper = dynamic(import("react-quill"), {
 });
 const TextEdit = (props) => {
   return (
-    <div className="mb-5">
+    <div className={props.className}>
       <label>{props.title}</label>
       <QuillNoSSRWrapper
         theme="snow"

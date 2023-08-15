@@ -32,8 +32,8 @@ const MultiSelect = (props) => {
 
 const goalOptions = [
   {
-    value: "get a job at their company",
-    label: "Getting a job at their company",
+    value: "get a referral for their company",
+    label: "Getting a referral for their company",
   },
   {
     value: "learn about industry insight",
