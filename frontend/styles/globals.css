@@ -11,20 +11,6 @@
   --gradient-color-4: #94c8ff;
 }
 
-.navbar-container {
-  background-color: #1a120b;
-  color: white;
-  height: 4em;
-  display: flex;
-  position: fixed;
-  align-items: center;
-  margin: 0;
-  top: 0;
-  left: 0;
-  width: 100%;
-  z-index: 100;
-}
-
 body {
   margin: 0;
 }
@@ -59,10 +45,6 @@ body {
   border-radius: 2rem;
   padding: 1rem 3rem;
   margin: 1rem;
-}
-
-.navbar-expand {
-  flex-wrap: wrap;
 }
 
 .logout {
@@ -159,6 +141,9 @@ body {
   .pill-btn {
     font-size: 0.8rem;
   }
+  .navbar-expand {
+    flex-wrap: wrap;
+  }
   .form-container {
     margin-bottom: 20%;
     margin-top: 10%;
@@ -235,6 +220,19 @@ body {
   background-color: #1a120b;
   color: white;
   border: white 2px solid;
+}
+
+.submit-btn {
+  background-color: #1a120b;
+  color: white;
+  border: white 2px solid;
+}
+
+.submit-btn:hover,
+.submit-btn:active {
+  background-color: white;
+  color: #1a120b;
+  border: #1a120b 2px solid;
 }
 
 .wrapper {

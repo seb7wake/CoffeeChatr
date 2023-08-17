@@ -84,7 +84,7 @@ export default function Home() {
                 Meeting Management
               </h2>
               <p className="text-[14px] leading-[20px] text-[#1a2b3b] font-normal mb-4">
-                BeanTalks isn't just about conversation starters – it's about
+                CoffeeChatr isn't just about conversation starters – it's about
                 strategic networking. Effortlessly manage your meetings and keep
                 track of crucial details.
               </p>

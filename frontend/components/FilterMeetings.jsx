@@ -33,11 +33,11 @@ const FilterMeetings = ({ chats, remove }) => {
           </div>
           <div className="d-flex justify-content-center ">
             <Button
-              className="align-items-center rounded-pill pill-btn"
+              className="align-items-center rounded-pill pill-btn font-semibold"
               size="lg"
               href="/create"
             >
-              Start brewing meaningful conversations
+              Create your first coffee chat
             </Button>
           </div>
         </div>

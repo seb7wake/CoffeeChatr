@@ -6,12 +6,9 @@ import { TbCoffee } from "react-icons/tb";
 const NavigationBar = ({ user }) => {
   const { _, setCurrentUser } = useAppContext();
   return (
-    <Navbar bg="dark" data-bs-theme="dark">
+    <Navbar bg="dark" data-bs-theme="dark" className="d-flex flex-row">
       <Container className="mb-0 m-2 align-items-center">
-        <Navbar.Brand
-          href="/"
-          className="d-flex flex-row align-items-center mx-1"
-        >
+        <Navbar.Brand href="/" className="d-flex align-items-center mx-1">
           <TbCoffee size={36} />
           <h3 className="ml-2 mr-5 text-2xl font-semibold">CoffeeChatr</h3>
         </Navbar.Brand>

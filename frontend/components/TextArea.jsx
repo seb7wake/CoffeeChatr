@@ -13,6 +13,7 @@ const TextArea = (props) => {
         placeholder={props.placeholder ?? ""}
         value={props.value}
         onChange={props.handleChange}
+        rows={props.rows ?? 3}
       />
       {props.text && <Form.Text muted>{props.text}</Form.Text>}
       {props.errors[props.name] && (

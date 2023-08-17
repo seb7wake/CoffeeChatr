@@ -121,7 +121,7 @@ const ChatForm = ({
   if (!user) return <div></div>;
 
   return (
-    <Form onSubmit={(e) => onSubmit(e, form)}>
+    <Form onSubmit={(e) => onSubmit(e, form)} className="mb-5">
       <TextInput
         name="title"
         title={"Title"}
@@ -191,6 +191,7 @@ const ChatForm = ({
         title="Previous Work Experience of Guest"
         value={form.invitee_experience}
         handleChange={handleTextInputChange}
+        rows="5"
         placeholder="Please list the guest's previous experience."
         errors={errors}
         text="Tip: Copy information from their Linkedin profile for best results!"
@@ -228,7 +229,7 @@ const ChatForm = ({
         placeholder="Enter notes from the meeting."
         handleChange={handleTextAreaChange}
       />
-      <Button type="submit" className="primary">
+      <Button type="submit" className="submit-btn" size="lg">
         {existingMeeting ? "Update" : "Create"} Coffee Chat
       </Button>
     </Form>
