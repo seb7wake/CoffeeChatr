@@ -23,7 +23,7 @@ const ChatForm = ({
   const [form, setForm] = useState({
     title: "",
     invitee_name: "",
-    invitee_linkedin_url: "",
+    meeting_link: "",
     invitee_industry: "",
     meeting_start_time: "",
     questions: "",
@@ -34,10 +34,13 @@ const ChatForm = ({
     invitee_about: "",
     goal: "",
   });
+  const [dateValue, setDateValue] = useState(null);
 
   useEffect(() => {
     if (existingMeeting) {
       setForm(existingMeeting);
+      if (existingMeeting.meeting_start_time !== "")
+        setDateValue(new Date(existingMeeting.meeting_start_time));
     }
   }, [existingMeeting]);
 
@@ -53,7 +56,6 @@ const ChatForm = ({
       ...prevState,
       [name]: value,
     }));
-    console.log("form after input change:", form);
   };
 
   const handleTextAreaChange = (name, newValue) => {
@@ -102,6 +104,12 @@ const ChatForm = ({
     });
   };
 
+  const formatDate = (date) => {
+    date = new Date(date);
+    date.setTime(date.getTime() - date.getTimezoneOffset() * 60000);
+    return date.toISOString();
+  };
+
   const popover = (
     <Popover className="popover">
       <Popover.Header as="h3">Generating Questions using AI</Popover.Header>
@@ -124,7 +132,7 @@ const ChatForm = ({
     <Form onSubmit={(e) => onSubmit(e, form)} className="mb-5">
       <TextInput
         name="title"
-        title={"Title"}
+        title={"Title*"}
         className="form-input"
         value={form.title}
         required
@@ -139,14 +147,14 @@ const ChatForm = ({
         handleChange={handleTextInputChange}
         errors={errors}
       />
-      {/* <TextInput
-            name="invitee_linkedin_url"
-            title={"Invitee Linkedin URL"}
-            className="form-input"
-            value={form.invitee_linkedin_url}
-            handleChange={handleTextInputChange}
-            errors={errors}
-          /> */}
+      <TextInput
+        name="meeting_link"
+        title={"Meeting Link"}
+        className="form-input"
+        value={form.meeting_link}
+        handleChange={handleTextInputChange}
+        errors={errors}
+      />
       <TextInput
         name="invitee_industry"
         title={"Guest Industry"}
@@ -156,19 +164,22 @@ const ChatForm = ({
         errors={errors}
       />
       <Form.Group className="mb-5">
-        <label style={{ width: "13rem" }}>Meeting Start Time</label>
+        <label style={{ width: "13rem" }}>Meeting Time*</label>
         <DateTimePicker
           name="meeting_start_time"
-          value={form.meeting_start_time}
+          value={dateValue}
           className="date-picker"
           required
+          format="MM/dd/yyyy h:mm a"
           disableClock
           minDate={new Date()}
-          onChange={(value) =>
+          onChange={(date) => {
+            setDateValue(date);
+            const dateStr = formatDate(date);
             handleTextInputChange({
-              target: { name: "meeting_start_time", value },
-            })
-          }
+              target: { name: "meeting_start_time", value: dateStr },
+            });
+          }}
         />
         {errors.meeting_start_time && (
           <div className="error">{errors.meeting_start_time}</div>
@@ -188,7 +199,7 @@ const ChatForm = ({
       />
       <TextArea
         name="invitee_experience"
-        title="Previous Work Experience of Guest"
+        title="Previous Work Experience of Guest*"
         value={form.invitee_experience}
         handleChange={handleTextInputChange}
         rows="5"
@@ -204,7 +215,11 @@ const ChatForm = ({
         placeholder="Please list the guest's previous education."
         errors={errors}
       />
-      <OverlayTrigger trigger="hover" placement="right" overlay={popover}>
+      <OverlayTrigger
+        trigger={["hover", "focus"]}
+        placement="right"
+        overlay={popover}
+      >
         <Button
           className="wrapper mb-4 mt-3 rounded-pill text-lg font-semibold"
           onClick={getQuestions}

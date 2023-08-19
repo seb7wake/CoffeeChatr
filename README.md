@@ -31,4 +31,4 @@ Welcome to CoffeeChatr, the platform for young professionals to brew meaningful 
 1. `cd coffeechatr/frontend` from the root project folder to move to the frontend
 2. Install dependencies: `yarn`
 3. Start server with Next.js: `yarn dev`
-4. Go to http://localhost:3000 :chart_with_upwards_trend:
+4. Go to http://localhost:3000 and sign up for free :chart_with_upwards_trend:

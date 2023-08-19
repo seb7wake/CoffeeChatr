@@ -37,10 +37,8 @@ const Create = () => {
       }));
       return;
     }
-    console.log(form);
     createChat(currentUser.id, trimEmptyFields(form))
       .then((data) => {
-        console.log(data);
         Router.push({
           pathname: "/",
           query: {
@@ -51,7 +49,6 @@ const Create = () => {
         });
       })
       .catch((err) => {
-        console.log(err);
         Router.push({
           pathname: "/",
           query: {

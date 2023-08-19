@@ -41,13 +41,6 @@ class MiniGl {
           ? function (e) {
               const t = new Date();
               t - _miniGl.lastDebugMsg > 1e3 && console.log("---"),
-                console.log(
-                  t.toLocaleTimeString() +
-                    Array(Math.max(0, 32 - e.length)).join(" ") +
-                    e +
-                    ": ",
-                  ...Array.from(arguments).slice(1)
-                ),
                 (_miniGl.lastDebugMsg = t);
             }
           : () => {}),

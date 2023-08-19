@@ -1,10 +1,8 @@
 export const getChats = async (id) => {
-  console.log(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/users/${id}/meetings`);
   let response = await fetch(
     `${process.env.NEXT_PUBLIC_SERVER_URL}/api/users/${id}/meetings`
   );
   const data = await response.json();
-  console.log("here", data);
   return data;
 };
 
@@ -19,7 +17,6 @@ export const generateQuestions = async (meetingData) => {
       body: JSON.stringify(meetingData),
     }
   );
-  console.log(response);
   const data = await response.json();
   return data;
 };
@@ -33,10 +30,6 @@ export const getChat = async (id) => {
 };
 
 export const createChat = async (id, chat) => {
-  console.log(
-    `${process.env.NEXT_PUBLIC_SERVER_URL}/api/users/${id}/meetings/`,
-    chat
-  );
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_SERVER_URL}/api/users/${id}/meetings/`,
     {

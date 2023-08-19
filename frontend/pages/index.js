@@ -24,7 +24,6 @@ const Home = (props) => {
   useEffect(() => {
     if (currentUser !== undefined) {
       getChats(currentUser.id).then((result) => {
-        console.log(result);
         setChats(
           result.sort(
             (a, b) =>
@@ -36,10 +35,6 @@ const Home = (props) => {
       });
     }
   }, [currentUser]);
-
-  useEffect(() => {
-    console.log(props.router.query);
-  }, [props.router.query]);
 
   const remove = async (event, id) => {
     event.preventDefault();

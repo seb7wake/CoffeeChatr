@@ -35,7 +35,6 @@ const Meetings = () => {
   useEffect(() => {
     if (router.query.id) {
       getChat(router.query.id).then((result) => {
-        console.log(result);
         setForm((prev) => ({ ...prev, ...result }));
       });
     }
@@ -60,7 +59,6 @@ const Meetings = () => {
       }));
       return;
     }
-    console.log("submitting form:", form);
     updateChat(data.id, trimEmptyFields(data))
       .then(() => {
         router.push({
@@ -73,7 +71,6 @@ const Meetings = () => {
         });
       })
       .catch((err) => {
-        console.log(err);
         router.push({
           pathname: "/",
           query: {
@@ -92,7 +89,6 @@ const Meetings = () => {
       active={isLoadingQuestions}
       spinner
       text="Generating questions... This could take a minute."
-      style={{ width: "100%", height: "100%" }}
     >
       <div>
         <NavigationBar isCreate={false} user={user} />

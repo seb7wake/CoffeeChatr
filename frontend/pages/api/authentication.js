@@ -1,5 +1,4 @@
 export const login = async (data) => {
-  console.log(`${process.env.NEXT_PUBLIC_SERVER_URL}/login/`);
   let response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/login/`, {
     method: "POST",
     headers: {
@@ -17,7 +16,6 @@ export const login = async (data) => {
 };
 
 export const signup = async (data) => {
-  console.log(`${process.env.NEXT_PUBLIC_SERVER_URL}/signup/`);
   let response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/signup/`, {
     method: "POST",
     headers: {
@@ -35,6 +33,5 @@ export const signup = async (data) => {
 };
 
 export const logout = async () => {
-  console.log(`${process.env.NEXT_PUBLIC_SERVER_URL}/logout/`);
   await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/logout/`);
 };
