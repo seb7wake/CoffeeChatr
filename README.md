@@ -9,7 +9,7 @@ Welcome to CoffeeChatr, the platform for young professionals to brew meaningful 
 3. Confirm your yarn version >= 1.22.11: `yarn --version`
 4. Confirm your PostgreSQL version >= 14: `psql --version`
 
-### Backend Setup :floppy_disk:
+### Backend Setup (Mac OS) :floppy_disk:
 
 1. `cd coffeechatr/server` from the root project folder to move to the backend
 2. Set up your psql table:
