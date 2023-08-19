@@ -16,17 +16,17 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include, re_path
 from rest_framework import routers
-from app import views
+from app.views import GenerateQuestionsView, UserDetailView, UserListView, UserMeetingsView, MeetingDetailView, MeetingsView
 
 router = routers.DefaultRouter()
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('generate/', views.GenerateQuestionList.as_view(), name="generate"),
+    path('generate/', GenerateQuestionsView.as_view(), name="generate"),
     path('api/', include(router.urls)),
-    path('api/users/<str:email>/', views.UserDetail.as_view(), name="user"),
-    path('api/users/', views.UserList.as_view(), name="users"),
-    path('api/users/<int:id>/meetings/', views.MeetingList.as_view(), name="meetings"),
-    path('api/meetings/<int:id>/', views.MeetingDetail.as_view(), name="meeting"),
-    path('api/meetings/', views.Meetings.as_view(), name="all_meetings"),
+    path('api/users/<str:email>/', UserDetailView.as_view(), name="user"),
+    path('api/users/', UserListView.as_view(), name="users"),
+    path('api/users/<int:id>/meetings/', UserMeetingsView.as_view(), name="meetings"),
+    path('api/meetings/<int:id>/', MeetingDetailView.as_view(), name="meeting"),
+    path('api/meetings/', MeetingsView.as_view(), name="all_meetings"),
 ]

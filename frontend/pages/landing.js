@@ -42,7 +42,7 @@ export default function Home() {
             className="relative md:ml-[-10px] md:mb-[16px] font-extrabold text-[6vw] md:text-[50px] font-inter text-[#1E2B3A] leading-[0.9] tracking-[-2px] z-[100]"
           >
             <div className="d-flex align-items-center">
-              <TbCoffee size={48} className="mr-2" />C o f f e e C h a t r
+              <TbCoffee className="mr-2 coffee-icon" />C o f f e e C h a t r
             </div>
           </motion.h3>
           <motion.h1

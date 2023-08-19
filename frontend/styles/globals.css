@@ -129,6 +129,10 @@ body {
     font-size: 0.95rem;
     margin-right: 0 !important;
   }
+  .coffee-icon {
+    height: 2rem;
+    width: 2rem;
+  }
   .navbar-brand {
     margin-right: 0 !important;
   }
@@ -170,6 +174,10 @@ body {
   }
   .form-container {
     padding: 3% 20%;
+  }
+  .coffee-icon {
+    height: 4rem;
+    width: 4rem;
   }
 }
 
@@ -229,10 +237,11 @@ body {
 }
 
 .submit-btn:hover,
+.submit-btn:focus,
 .submit-btn:active {
-  background-color: white;
-  color: #1a120b;
-  border: #1a120b 2px solid;
+  background-color: white !important;
+  color: #1a120b !important;
+  border: #1a120b 2px solid !important;
 }
 
 .wrapper {
