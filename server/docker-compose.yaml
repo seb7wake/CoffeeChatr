@@ -1,0 +1,39 @@
+version: "1"
+services:
+  database:
+    image: postgres:14.6-alpine
+    restart: always
+    environment:
+      - POSTGRES_DB=beantalks
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "sh -c 'pg_isready -U postgres -d beantalks'"]
+      interval: 10s
+      timeout: 3s
+      retries: 3
+    # volumes:
+    #   - ./database:/var/lib/postgresql/data
+
+  server:
+    image: seb7wake/server:latest
+    ports:
+      - "80:80"
+    depends_on:
+      - database
+    environment:
+      POSTGRES_DB: beantalks
+      POSTGRES_HOST: database
+      POSTGRES_PORT: 5432
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      DATABASE_URL: postgres://postgres:postgres@database:5432/beantalks
+    # volumes:
+    #   - ./server:/server
+    command: ash -c "python manage.py migrate && python manage.py runserver 0.0.0.0:80"
+
+volumes:
+  db:
+    driver: local
