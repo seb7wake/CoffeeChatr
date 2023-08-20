@@ -17,7 +17,7 @@ const createUser = async (email) => {
       },
       body: JSON.stringify({ email }),
     }
-  ).catch((err) => {});
+  );
   const data = await response.json();
   return { status: response.status, data };
 };

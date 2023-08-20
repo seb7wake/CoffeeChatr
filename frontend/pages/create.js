@@ -40,7 +40,7 @@ const Create = () => {
     createChat(currentUser.id, trimEmptyFields(form))
       .then((data) => {
         Router.push({
-          pathname: "/",
+          pathname: "/home",
           query: {
             show: true,
             status: "success",
@@ -50,7 +50,7 @@ const Create = () => {
       })
       .catch((err) => {
         Router.push({
-          pathname: "/",
+          pathname: "/home",
           query: {
             show: true,
             status: "danger",

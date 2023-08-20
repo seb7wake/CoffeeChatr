@@ -62,7 +62,7 @@ const Meetings = () => {
     updateChat(data.id, trimEmptyFields(data))
       .then(() => {
         router.push({
-          pathname: "/",
+          pathname: "/home",
           query: {
             show: true,
             status: "success",
@@ -72,7 +72,7 @@ const Meetings = () => {
       })
       .catch((err) => {
         router.push({
-          pathname: "/",
+          pathname: "/home",
           query: {
             show: true,
             status: "danger",
