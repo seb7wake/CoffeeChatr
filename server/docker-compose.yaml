@@ -1,4 +1,4 @@
-version: "1"
+version: "1.1"
 services:
   database:
     image: postgres:14.6-alpine
@@ -18,7 +18,7 @@ services:
     #   - ./database:/var/lib/postgresql/data
 
   server:
-    image: seb7wake/server:latest
+    image: seb7wake/beantalks:1
     ports:
       - "80:80"
     depends_on:

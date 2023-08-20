@@ -61,7 +61,7 @@ const goalOptions = [
   },
   {
     value: "learn about skill development in their industry",
-    label: "Learn about skill development in their industry",
+    label: "Learning about skill development in their industry",
   },
 ];
 

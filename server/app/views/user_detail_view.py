@@ -9,7 +9,6 @@ from app.models import *
 class UserDetailView(APIView):
     def get(self, request, email):
         user = User.objects.get(email=email)
-        print("test asudbcjhwebc", email)
         serializer = UserSerializer(user)
         return Response(serializer.data)
     
