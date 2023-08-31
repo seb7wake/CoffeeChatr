@@ -2,8 +2,8 @@ export const getChats = async (id) => {
   let response = await fetch(
     `${process.env.NEXT_PUBLIC_SERVER_URL}/api/users/${id}/meetings`
   );
-  const data = await response.json();
-  return data;
+  const data = response.status === 200 ? await response.json() : [];
+  return { status: response.status, data };
 };
 
 export const generateQuestions = async (meetingData) => {
@@ -17,7 +17,7 @@ export const generateQuestions = async (meetingData) => {
       body: JSON.stringify(meetingData),
     }
   );
-  const data = await response.json();
+  const data = response.status === 200 ? await response.json() : "";
   return { status: response.status, data };
 };
 
@@ -25,8 +25,8 @@ export const getChat = async (id) => {
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_SERVER_URL}/api/meetings/${id}`
   );
-  const data = await response.json();
-  return data;
+  const data = response.status === 200 ? await response.json() : [];
+  return { status: response.status, data };
 };
 
 export const createChat = async (id, chat) => {

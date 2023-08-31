@@ -72,12 +72,12 @@ const ChatForm = ({
     if (
       form.invitee_about === "" &&
       form.experience.length === 0 &&
-      form.education.length === 0
+      form.goal === ""
     ) {
       setErrors((prevState) => ({
         ...prevState,
         questions:
-          "Please complete at least one of the following fields before generating questions: Guest Description, Experience, or Education",
+          "Please complete at least one of the following fields before generating questions: Meeting goal, Guest description, or Experience.",
       }));
       return;
     }

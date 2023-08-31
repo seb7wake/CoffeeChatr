@@ -35,7 +35,7 @@ const Meetings = () => {
   useEffect(() => {
     if (router.query.id) {
       getChat(router.query.id).then((result) => {
-        setForm((prev) => ({ ...prev, ...result }));
+        setForm((prev) => ({ ...prev, ...result.data }));
       });
     }
   }, [router]);

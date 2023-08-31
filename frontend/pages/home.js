@@ -24,13 +24,20 @@ const Home = (props) => {
   useEffect(() => {
     if (currentUser !== undefined) {
       getChats(currentUser.id).then((result) => {
-        setChats(
-          result.sort(
-            (a, b) =>
-              Date.parse(b.meeting_start_time) -
-              Date.parse(a.meeting_start_time)
-          )
-        );
+        if (result.status === 200) {
+          setChats(
+            result.data.sort(
+              (a, b) =>
+                Date.parse(b.meeting_start_time) -
+                Date.parse(a.meeting_start_time)
+            )
+          );
+        } else {
+          setChats([]);
+          setStatus("danger");
+          setMessage("Could not fetch chats.");
+          setShow(true);
+        }
         setLoading(false);
       });
     }
