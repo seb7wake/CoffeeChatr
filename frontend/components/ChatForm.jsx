@@ -11,6 +11,7 @@ import Popover from "react-bootstrap/Popover";
 import DateTimePicker from "react-datetime-picker";
 import "react-datetime-picker/dist/DateTimePicker.css";
 import "react-calendar/dist/Calendar.css";
+import Experience from "./Experience";
 
 const ChatForm = ({
   user,
@@ -29,7 +30,8 @@ const ChatForm = ({
     questions: "",
     meeting_notes: "",
     invitee_about: "",
-    invitee_education: "",
+    experience: [],
+    education: [],
     invitee_experience: "",
     invitee_about: "",
     goal: "",
@@ -69,8 +71,8 @@ const ChatForm = ({
     event.preventDefault();
     if (
       form.invitee_about === "" &&
-      form.invitee_experience === "" &&
-      form.invitee_education === ""
+      form.experience.length === 0 &&
+      form.education.length === 0
     ) {
       setErrors((prevState) => ({
         ...prevState,
@@ -81,27 +83,26 @@ const ChatForm = ({
     }
     const invitee_info = {
       invitee_about: form.invitee_about,
-      invitee_experience: form.invitee_experience,
-      invitee_education: form.invitee_education,
+      experience: form.experience,
+      // education field will be added to the form eventually, but it is low priority and unncecessary for MVP
+      education: form.education,
       invitee_industry: form.invitee_industry ?? "",
       goal: form.goal ?? "",
     };
     setIsLoadingQuestions(true);
-    generateQuestions(invitee_info).then((data) => {
-      setIsLoadingQuestions(false);
-      if (data.error) {
-        setErrors((prevState) => ({
-          ...prevState,
-          questions: data.error,
-        }));
-        return;
-      } else {
-        setForm((prevState) => ({
-          ...prevState,
-          questions: data,
-        }));
-      }
-    });
+    const res = await generateQuestions(invitee_info);
+    setIsLoadingQuestions(false);
+    if (res.status !== 200) {
+      setErrors((prevState) => ({
+        ...prevState,
+        questions: "Error generating questions. Please try again.",
+      }));
+    } else {
+      setForm((prevState) => ({
+        ...prevState,
+        questions: res.data,
+      }));
+    }
   };
 
   const formatDate = (date) => {
@@ -197,24 +198,9 @@ const ChatForm = ({
         errors={errors}
         text=""
       />
-      <TextArea
-        name="invitee_experience"
-        title="Previous Work Experience of Guest*"
-        value={form.invitee_experience}
-        handleChange={handleTextInputChange}
-        rows="5"
-        placeholder="Please list the guest's previous experience."
-        errors={errors}
-        text="Tip: Copy information from their Linkedin profile for best results!"
-      />
-      <TextArea
-        name="invitee_education"
-        title="Previous Education of Guest"
-        value={form.invitee_education}
-        handleChange={handleTextInputChange}
-        placeholder="Please list the guest's previous education."
-        errors={errors}
-      />
+
+      <Experience experience={form.experience} setForm={setForm} />
+
       <OverlayTrigger
         trigger={["hover", "focus"]}
         placement="right"

@@ -50,7 +50,12 @@ const Home = (props) => {
     setShow(true);
   };
 
-  if (!currentUser || loading) return <Spinner />;
+  if (!currentUser || loading)
+    return (
+      <div className="d-flex justify-content-center align-items-center">
+        <Spinner />
+      </div>
+    );
 
   return (
     <>

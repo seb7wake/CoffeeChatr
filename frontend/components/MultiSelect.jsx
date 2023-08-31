@@ -18,6 +18,7 @@ const MultiSelect = (props) => {
         }
         options={goalOptions}
         className="basic-multi-select"
+        required
         classNamePrefix="select"
         onChange={(values) => {
           props.setForm((prevState) => ({
@@ -36,8 +37,8 @@ const goalOptions = [
     label: "Getting a referral from them",
   },
   {
-    value: "learn about industry insight",
-    label: "Learning about industry insight",
+    value: "learn about their career path",
+    label: "Learning about their career path",
   },
   {
     value: "receive mentorship and guidance",

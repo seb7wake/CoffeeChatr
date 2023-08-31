@@ -40,17 +40,7 @@ const Meetings = () => {
     }
   }, [router]);
 
-  const trimEmptyFields = (obj) => {
-    let newObj = {};
-    Object.keys(obj).forEach((key) => {
-      if (obj[key] !== "") {
-        newObj[key] = obj[key];
-      }
-    });
-    return newObj;
-  };
-
-  const onSubmit = (event, data) => {
+  const onSubmit = async (event, data) => {
     event.preventDefault();
     if (!data.title) {
       setErrors((prevState) => ({
@@ -59,27 +49,26 @@ const Meetings = () => {
       }));
       return;
     }
-    updateChat(data.id, trimEmptyFields(data))
-      .then(() => {
-        router.push({
-          pathname: "/home",
-          query: {
-            show: true,
-            status: "success",
-            message: "Coffee chat has been updated successfully!",
-          },
-        });
-      })
-      .catch((err) => {
-        router.push({
-          pathname: "/home",
-          query: {
-            show: true,
-            status: "danger",
-            message: "Something went wrong. Please try again.",
-          },
-        });
+    const res = await updateChat(data.id, data);
+    if (res.status === 200) {
+      router.push({
+        pathname: "/home",
+        query: {
+          show: true,
+          status: "success",
+          message: "Coffee chat has been updated successfully!",
+        },
       });
+    } else {
+      router.push({
+        pathname: "/home",
+        query: {
+          show: true,
+          status: "danger",
+          message: "Something went wrong. Please try again.",
+        },
+      });
+    }
   };
 
   if (!currentUser) return <Spinner />;

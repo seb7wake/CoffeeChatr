@@ -21,7 +21,7 @@ const Create = () => {
   });
   const [isLoadingQuestions, setIsLoadingQuestions] = useState(false);
 
-  const handleSubmit = (event, form) => {
+  const handleSubmit = async (event, form) => {
     event.preventDefault();
     if (!form.title) {
       setErrors((prevState) => ({
@@ -37,27 +37,26 @@ const Create = () => {
       }));
       return;
     }
-    createChat(currentUser.id, trimEmptyFields(form))
-      .then((data) => {
-        Router.push({
-          pathname: "/home",
-          query: {
-            show: true,
-            status: "success",
-            message: "Coffee chat has been created successfully!",
-          },
-        });
-      })
-      .catch((err) => {
-        Router.push({
-          pathname: "/home",
-          query: {
-            show: true,
-            status: "danger",
-            message: "Coffee chat could not be created.",
-          },
-        });
+    const res = await createChat(currentUser.id, trimEmptyFields(form));
+    if (res.status === 201) {
+      Router.push({
+        pathname: "/home",
+        query: {
+          show: true,
+          status: "success",
+          message: "Coffee chat has been created successfully!",
+        },
       });
+    } else {
+      Router.push({
+        pathname: "/home",
+        query: {
+          show: true,
+          status: "danger",
+          message: "Coffee chat could not be created.",
+        },
+      });
+    }
   };
 
   const trimEmptyFields = (obj) => {

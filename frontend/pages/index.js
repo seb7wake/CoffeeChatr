@@ -74,6 +74,8 @@ export default function Landing() {
                 Networking Companion
               </h2>
               <p className="text-[14px] leading-[20px] text-[#1a2b3b] font-normal mb-4">
+                CoffeeChatr takes the hassle out of crafting meaningful
+                discussion topics for your coffee chats and networking meetings.
                 Let our AI-powered tool be your guide for leaving a lasting
                 impression every time you sit down for that career-shaping
                 coffee.
@@ -84,9 +86,9 @@ export default function Landing() {
                 Meeting Management
               </h2>
               <p className="text-[14px] leading-[20px] text-[#1a2b3b] font-normal mb-4">
-                CoffeeChatr isn't just about conversation starters – it's about
-                strategic networking. Effortlessly manage your meetings and keep
-                track of crucial details.
+                It isn't just about conversation starters – it's about strategic
+                networking. Effortlessly manage your meetings and keep track of
+                crucial details.
               </p>
             </div>
           </motion.div>

@@ -12,7 +12,7 @@ export function AppWrapper({ children }) {
 
   useEffect(() => {
     if (user && currentUser === undefined) {
-      const res = getUser(user.email)
+      getUser(user.email)
         .catch(async () => {
           createUser(user.email).then(async (result) => {
             setCurrentUser(result.data);

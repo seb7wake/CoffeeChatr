@@ -28,7 +28,7 @@ const Search = ({ handleSearch }) => {
             }}
           />
           <Button
-            className="rounded-pill"
+            className="rounded-pill search-btn"
             variant="outline-primary"
             onClick={() => handleSearch(searchTerm)}
           >

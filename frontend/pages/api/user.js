@@ -1,5 +1,5 @@
 const getUser = async (email) => {
-  let response = await fetch(
+  const response = await fetch(
     `${process.env.NEXT_PUBLIC_SERVER_URL}/api/users/${email}`
   );
   const data = await response.json();
@@ -7,7 +7,7 @@ const getUser = async (email) => {
 };
 
 const createUser = async (email) => {
-  let response = await fetch(
+  const response = await fetch(
     `${process.env.NEXT_PUBLIC_SERVER_URL}/api/users/`,
     {
       method: "POST",

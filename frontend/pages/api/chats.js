@@ -18,7 +18,7 @@ export const generateQuestions = async (meetingData) => {
     }
   );
   const data = await response.json();
-  return data;
+  return { status: response.status, data };
 };
 
 export const getChat = async (id) => {
@@ -40,8 +40,7 @@ export const createChat = async (id, chat) => {
       body: JSON.stringify(chat),
     }
   );
-  const data = await response.json();
-  return data;
+  return response;
 };
 
 export const deleteChat = async (id) => {
@@ -58,11 +57,15 @@ export const deleteChat = async (id) => {
 };
 
 export const updateChat = async (id, chat) => {
-  await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/meetings/${id}/`, {
-    method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(chat),
-  });
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_SERVER_URL}/api/meetings/${id}/`,
+    {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(chat),
+    }
+  );
+  return response;
 };
