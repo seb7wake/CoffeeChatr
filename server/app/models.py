@@ -9,6 +9,8 @@ class Meeting(models.Model):
     invitee_linkedin_url = models.CharField(max_length=50, default="", blank=True)
     meeting_link = models.CharField(max_length=100, default="", blank=True)
     meeting_notes = models.TextField(default="", blank=True)
+    invitee_education = models.TextField(default="", blank=True)
+    invitee_experience = models.TextField(default="", blank=True)
     invitee_about = models.TextField(default="", blank=True)
     questions = models.TextField(default="", blank=True)
     goal = models.TextField(default="", blank=True)
