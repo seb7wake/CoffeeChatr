@@ -12,6 +12,7 @@ import DateTimePicker from "react-datetime-picker";
 import "react-datetime-picker/dist/DateTimePicker.css";
 import "react-calendar/dist/Calendar.css";
 import Experience from "./Experience";
+import * as amplitude from "@amplitude/analytics-browser";
 
 const ChatForm = ({
   user,
@@ -92,6 +93,13 @@ const ChatForm = ({
     setIsLoadingQuestions(true);
     const res = await generateQuestions(invitee_info);
     setIsLoadingQuestions(false);
+    amplitude.track("Generate Questions", {
+      status: res.status,
+      ...invitee_info,
+      response: res.data,
+      user_id: user.id,
+      email: user.email,
+    });
     if (res.status !== 200) {
       setErrors((prevState) => ({
         ...prevState,

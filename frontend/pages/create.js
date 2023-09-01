@@ -11,6 +11,7 @@ import ChatForm from "@/components/ChatForm";
 import LoadingOverlay from "react-loading-overlay";
 import Spinner from "@/components/Spinner";
 import { useAppContext } from "@/context/state";
+import * as amplitude from "@amplitude/analytics-browser";
 
 const Create = () => {
   const { currentUser, _ } = useAppContext();
@@ -38,6 +39,12 @@ const Create = () => {
       return;
     }
     const res = await createChat(currentUser.id, trimEmptyFields(form));
+    amplitude.track("Create Chat", {
+      status: res.status,
+      ...form,
+      user_id: currentUser.id,
+      email: currentUser.email,
+    });
     if (res.status === 201) {
       Router.push({
         pathname: "/home",

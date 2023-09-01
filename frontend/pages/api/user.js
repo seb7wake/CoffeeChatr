@@ -2,7 +2,7 @@ const getUser = async (email) => {
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_SERVER_URL}/api/users/${email}`
   );
-  const data = await response.json();
+  const data = response.status === 200 ? await response.json() : "";
   return { status: response.status, data };
 };
 
@@ -18,7 +18,8 @@ const createUser = async (email) => {
       body: JSON.stringify({ email }),
     }
   );
-  const data = await response.json();
+  const data = response.status === 201 ? await response.json() : "";
+  console.log(response);
   return { status: response.status, data };
 };
 

@@ -9,6 +9,7 @@ import ChatForm from "@/components/ChatForm";
 import LoadingOverlay from "react-loading-overlay";
 import Spinner from "@/components/Spinner";
 import { useAppContext } from "@/context/state";
+import * as amplitude from "@amplitude/analytics-browser";
 
 const Meetings = () => {
   const router = useRouter();
@@ -50,6 +51,12 @@ const Meetings = () => {
       return;
     }
     const res = await updateChat(data.id, data);
+    amplitude.track("Update Chat", {
+      status: res.status,
+      ...data,
+      user_id: currentUser.id,
+      email: currentUser.email,
+    });
     if (res.status === 200) {
       router.push({
         pathname: "/home",
