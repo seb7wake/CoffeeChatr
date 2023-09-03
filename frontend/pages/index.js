@@ -72,6 +72,17 @@ export default function Landing() {
           >
             <div className="w-1/2">
               <h2 className="flex items-center font-semibold text-[1em] text-[#1a2b3b] mb-2">
+                What Is CoffeeChatr?
+              </h2>
+              <p className="text-[14px] leading-[20px] text-[#1a2b3b] font-normal mb-4">
+                CoffeeChatr is the ultimate tool for crafting engaging
+                conversation topics and questions, personalized to your guest's
+                background, industry, and meeting objectives, ensuring your
+                coffee chats are both productive and insightful.
+              </p>
+            </div>
+            <div className="w-1/2 ml-4">
+              <h2 className="flex items-center font-semibold text-[1em] text-[#1a2b3b] mb-2">
                 What Exactly Is a Coffee Chat?
               </h2>
               <p className="text-[14px] leading-[20px] text-[#1a2b3b] font-normal mb-4">
@@ -79,18 +90,6 @@ export default function Landing() {
                 to connect with industry leaders, whether you're a pro or a
                 student. It's a casual yet powerful way to network, seek
                 mentorship, and discuss career goals, all from your device.
-              </p>
-            </div>
-            <div className="w-1/2 ml-4">
-              <h2 className="flex items-center font-semibold text-[1em] text-[#1a2b3b] mb-2">
-                Networking Companion
-              </h2>
-              <p className="text-[14px] leading-[20px] text-[#1a2b3b] font-normal mb-4">
-                Elevate your networking game with CoffeeChatr, your AI-powered
-                companion. Craft engaging conversation topics and questions
-                tailored to your meeting goals and guests' work experience. Make
-                every coffee chat count, seamlessly manage meetings, and leave a
-                lasting impression on your career journey.
               </p>
             </div>
           </motion.div>
