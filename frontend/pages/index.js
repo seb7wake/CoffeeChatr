@@ -75,8 +75,8 @@ export default function Landing() {
                 What Is CoffeeChatr?
               </h2>
               <p className="text-[14px] leading-[20px] text-[#1a2b3b] font-normal mb-4">
-                CoffeeChatr is the ultimate tool for crafting engaging
-                conversation topics and questions, personalized to your guest's
+                CoffeeChatr is a tool for generating engaging conversation
+                topics and questions using AI, personalized to your guest's
                 background, industry, and meeting objectives, ensuring your
                 coffee chats are both productive and insightful.
               </p>
