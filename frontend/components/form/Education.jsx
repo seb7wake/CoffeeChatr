@@ -1,25 +1,27 @@
 import React from "react";
 import { IoAddCircleOutline } from "react-icons/io5";
-import Position from "./Position";
+import School from "./School";
 
-const Experience = (props) => {
-  const removePosition = (e, id) => {
+const Education = (props) => {
+  const removeSchool = (e, id) => {
     e.preventDefault();
     props.setForm((prevState) => ({
       ...prevState,
-      experience: props.experience.filter((item) => item.id !== id),
+      education: props.education.filter((item) => item.id !== id),
     }));
   };
 
-  const addPosition = (e) => {
+  const addSchool = (e) => {
     e.preventDefault();
     props.setForm((prevState) => ({
       ...prevState,
-      experience: [
-        ...props.experience,
+      education: [
+        ...props.education,
         {
-          id: (props.experience.length + 1).toString(),
-          title: "",
+          id: (props.education.length + 1).toString(),
+          school: "",
+          degree: "",
+          field_of_study: "",
           description: "",
         },
       ],
@@ -29,16 +31,16 @@ const Experience = (props) => {
   return (
     <div className="mb-4">
       <label className="mb-2 d-flex flex-row">
-        Relevant Work Experience of Guest
+        Relevant Education of Guest
       </label>
-      {props.experience &&
-        props.experience.map((item, index) => {
+      {props.education &&
+        props.education.map((item, index) => {
           return (
-            <Position
-              key={index}
+            <School
+              index={item.id}
               {...item}
-              removePosition={removePosition}
-              experience={props.experience}
+              removeSchool={removeSchool}
+              education={props.education}
               setForm={props.setForm}
             />
           );
@@ -46,7 +48,7 @@ const Experience = (props) => {
       <button
         type="button"
         className="rounded-pill pill-btn mb-3 border-1 py-2 w-25"
-        onClick={addPosition}
+        onClick={addSchool}
       >
         <span className="d-flex flex-row justify-content-center align-items-center">
           Add
@@ -60,4 +62,4 @@ const Experience = (props) => {
   );
 };
 
-export default Experience;
+export default Education;

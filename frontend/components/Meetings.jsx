@@ -1,15 +1,10 @@
 import React, { useEffect, useState } from "react";
 import Item from "./Item";
 import Search from "./form/Search";
-import { TbCoffeeOff, TbCoffee } from "react-icons/tb";
 import { Image, Button } from "react-bootstrap";
-import Tab from "react-bootstrap/Tab";
-import Tabs from "react-bootstrap/Tabs";
 import ChatLogo from "../public/chat.png";
-import NextLink from "next/link";
 
-const FilterMeetings = ({ chats, remove }) => {
-  const [time, setTime] = useState(new Date());
+const Meetings = ({ chats, remove }) => {
   const [searchTerm, setSearchTerm] = useState();
 
   const filteredMeetings = (meetings) => {
@@ -55,27 +50,9 @@ const FilterMeetings = ({ chats, remove }) => {
   return (
     <div className="mt-5 container pt-3">
       <Search handleSearch={handleSearch} />
-      <Tabs defaultActiveKey="all" variant="underline" className="mb-3 h4 mt-4">
-        <Tab eventKey="all" title="All">
-          {filteredMeetings(chats)}
-        </Tab>
-        <Tab eventKey="upcoming" title="Upcoming">
-          {filteredMeetings(
-            chats.filter(
-              (chat) => Date.parse(chat.meeting_start_time) > Date.parse(time)
-            )
-          )}
-        </Tab>
-        <Tab eventKey="past" title="Past">
-          {filteredMeetings(
-            chats.filter(
-              (chat) => Date.parse(chat.meeting_start_time) < Date.parse(time)
-            )
-          )}
-        </Tab>
-      </Tabs>
+      {filteredMeetings(chats)}
     </div>
   );
 };
 
-export default FilterMeetings;
+export default Meetings;

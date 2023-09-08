@@ -4,15 +4,22 @@ import NextLink from "next/link";
 import { FaTrashCan } from "react-icons/fa6";
 
 const Item = ({ chat, remove }) => {
-  const start_time = new Date(chat.meeting_start_time);
-
+  const getDescriptiveText = () => {
+    if (chat.invitee_about) {
+      return `About Guest: ${chat.invitee_about}`;
+    } else if (chat.goal) {
+      return `Goal: ${chat.goal}`;
+    } else if (chat.invitee_industry) {
+      return `Industry: ${chat.invitee_industry}`;
+    }
+  };
   return (
     <NextLink href={`/meetings/${chat.id}`} className="item-link">
       <Card border="dark" className="mb-3 item p-2">
         <Card.Body className="d-flex flex-row align-items-center justify-content-between">
           <div>
             <Card.Title>{chat.title}</Card.Title>
-            <Card.Text>
+            {/* <Card.Text>
               {"When: " +
                 start_time.toLocaleString("default", {
                   month: "long",
@@ -26,7 +33,10 @@ const Item = ({ chat, remove }) => {
                   hour: "numeric",
                   minute: "2-digit",
                 })}
-            </Card.Text>
+            </Card.Text> */}
+            {getDescriptiveText() && (
+              <Card.Text>{getDescriptiveText()}</Card.Text>
+            )}
           </div>
           <div onClick={(e) => remove(e, chat.id)} className="mx-2">
             <FaTrashCan color="#ff0000" />

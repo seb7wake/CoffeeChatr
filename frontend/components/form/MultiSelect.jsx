@@ -4,11 +4,12 @@ import { Form } from "react-bootstrap";
 
 const MultiSelect = (props) => {
   return (
-    <Form.Group className="mb-5">
-      <label style={{ width: "13rem" }}>The goal of this meeting is...</label>
+    <Form.Group className="mb-5 row">
+      <label style={{ width: "10rem" }}>Meeting goal</label>
       <Select
         isMulti
         name="goal"
+        placeholder="Select all that apply..."
         value={
           props.form.goal
             ? goalOptions.filter((option) => {
@@ -33,16 +34,24 @@ const MultiSelect = (props) => {
 
 const goalOptions = [
   {
-    value: "get a referral from them",
-    label: "Getting a referral from them",
+    value: "get a job referral",
+    label: "Getting a job referral",
   },
   {
-    value: "learn about their career path",
-    label: "Learning about their career path",
+    value: "receive career advice",
+    label: "Receiving career advice",
+  },
+  {
+    value: "receive advice on educational paths",
+    label: "Receiving advice on educational paths",
   },
   {
     value: "receive mentorship and guidance",
     label: "Receiving mentorship and guidance",
+  },
+  {
+    value: "learn about their education experience",
+    label: "Learning about their education experience",
   },
   {
     value: "build a long-term relationship",
@@ -63,6 +72,14 @@ const goalOptions = [
   {
     value: "learn about skill development in their industry",
     label: "Learning about skill development in their industry",
+  },
+  {
+    value: "explore partnership or collaboration opportunities",
+    label: "Exploring partnership or collaboration opportunities",
+  },
+  {
+    value: "learn about their career path",
+    label: "Learning about their career path",
   },
 ];
 

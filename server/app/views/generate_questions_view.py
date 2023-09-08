@@ -25,6 +25,12 @@ class GenerateQuestionsView(APIView):
                 if exp['description']:
                     content += "\ndescription:\n" + exp['description']
                 content += "\n"
+        if data.get('education'):
+            content += "Guests' Education: "
+            for edu in data['education']:
+                content += "school: " + edu['school'] + "\n" + "degree: " + edu['degree'] + "\n" + "field of study: " + edu['field_of_study']
+                if edu['description']:
+                    content += "\ndescription:\n" + edu['description']
         content += "\n"
 
         headers = {

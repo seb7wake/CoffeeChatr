@@ -27,7 +27,7 @@ class UserMeetingsView(APIView):
                         exp_serializer.save(meeting=meeting)
                     else:
                         return Response({'errors': exp_serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
-                        
+
                 for edu in education:
                     edu['meeting'] = meeting.id
                     edu_serializer = EducationSerializer(data=edu)

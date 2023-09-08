@@ -8,16 +8,16 @@ import Router, { withRouter } from "next/router";
 import NavigationBar from "@/components/NavigationBar";
 import { getChats } from "./api/chats";
 import { createUser, getUser } from "./api/user";
-import FilterMeetings from "../components/FilterMeetings";
+import Meetings from "../components/Meetings";
 import { deleteChat } from "./api/chats";
 import Spinner from "../components/Spinner";
 import { useAppContext } from "@/context/state";
 
 const Home = (props) => {
   const [chats, setChats] = useState([]);
-  const [show, setShow] = useState(props.router.query.show ?? false);
-  const [message, setMessage] = useState(props.router.query.message ?? "");
-  const [status, setStatus] = useState(props.router.query.status ?? "");
+  const [show, setShow] = useState(!!props.router.query?.show);
+  const [message, setMessage] = useState(props.router.query?.message ?? "");
+  const [status, setStatus] = useState(props.router.query?.status ?? "");
   const { currentUser, setCurrentUser } = useAppContext();
   const [loading, setLoading] = useState(true);
 
@@ -88,11 +88,7 @@ const Home = (props) => {
       <main>
         <>
           <NavigationBar isCreate={false} user={currentUser} />
-          <FilterMeetings
-            chats={chats}
-            setShowToast={setShow}
-            remove={remove}
-          />
+          <Meetings chats={chats} remove={remove} />
         </>
       </main>
     </>

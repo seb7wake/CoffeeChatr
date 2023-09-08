@@ -5,7 +5,7 @@ import { useUser } from "@auth0/nextjs-auth0/client";
 import { getUser } from "@/pages/api/user";
 import { updateChat } from "@/pages/api/chats";
 import NavigationBar from "@/components/NavigationBar";
-import ChatForm from "@/components/ChatForm";
+import ChatForm from "@/components/form/ChatForm";
 import LoadingOverlay from "react-loading-overlay";
 import Spinner from "@/components/Spinner";
 import { useAppContext } from "@/context/state";

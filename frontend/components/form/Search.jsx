@@ -5,7 +5,7 @@ const Search = ({ handleSearch }) => {
   const [searchTerm, setSearchTerm] = useState("");
 
   return (
-    <Row>
+    <Row className="mb-5">
       <Col sm={4}>
         <Form className="d-flex">
           <Form.Control

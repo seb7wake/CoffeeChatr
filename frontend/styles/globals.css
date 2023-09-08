@@ -122,6 +122,11 @@ body {
   margin-left: 20%;
 }
 
+.chat-description {
+  margin-left: 20%;
+  margin-right: 20%;
+}
+
 @media (max-width: 768px) {
   .navbar-nav {
     flex-direction: row;
@@ -205,6 +210,18 @@ body {
 
 .error {
   color: red;
+}
+
+.basic-multi-select > * {
+  width: 72.5%;
+}
+
+.basic-multi-select {
+  width: 70%;
+}
+
+.modal-btn {
+  background-color: var(--bs-primary);
 }
 
 .react-datetime-picker > .react-datetime-picker__wrapper {

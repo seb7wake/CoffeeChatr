@@ -1,8 +1,8 @@
-import TextArea from "@/components/TextArea";
-import TextInput from "@/components/TextInput";
+import TextArea from "@/components/form/TextArea";
+import TextInput from "@/components/form/TextInput";
 import { Form } from "react-bootstrap";
 import React, { useState, useEffect, useRef } from "react";
-import MultiSelect from "@/components/MultiSelect";
+import MultiSelect from "@/components/form/MultiSelect";
 import { generateQuestions, createChat } from "@/pages/api/chats";
 import { Container, Button, Col, Dropdown } from "react-bootstrap";
 import TextEdit from "@/components/TextEdit";
@@ -13,6 +13,8 @@ import "react-datetime-picker/dist/DateTimePicker.css";
 import "react-calendar/dist/Calendar.css";
 import Experience from "./Experience";
 import * as amplitude from "@amplitude/analytics-browser";
+import ChatModal from "@/components/ChatModal";
+import Education from "./Education";
 
 const ChatForm = ({
   user,
@@ -38,12 +40,15 @@ const ChatForm = ({
     goal: "",
   });
   const [dateValue, setDateValue] = useState(null);
+  const [show, setShow] = useState(false);
 
   useEffect(() => {
     if (existingMeeting) {
       setForm(existingMeeting);
       if (existingMeeting.meeting_start_time !== "")
         setDateValue(new Date(existingMeeting.meeting_start_time));
+    } else {
+      setShow(true);
     }
   }, [existingMeeting]);
 
@@ -68,28 +73,40 @@ const ChatForm = ({
     setForm((prevState) => ({ ...prevState, [name]: newValue }));
   };
 
-  const getQuestions = async (event) => {
-    event.preventDefault();
+  const getQuestionData = (data) => {
+    return {
+      invitee_about: data.invitee_about,
+      experience: data.experience,
+      // education field will be added to the form eventually, but it is low priority and unncecessary for MVP
+      education: data.education,
+      invitee_industry: data.invitee_industry ?? "",
+      goal: data.goal ?? "",
+    };
+  };
+
+  const isValidForm = () => {
     if (
       form.invitee_about === "" &&
       form.experience.length === 0 &&
+      form.education.length === 0 &&
       form.goal === ""
     ) {
       setErrors((prevState) => ({
         ...prevState,
         questions:
-          "Please complete at least one of the following fields before generating questions: Meeting goal, Guest description, or Experience.",
+          "Please complete at least one of the following fields before generating questions: Meeting goal, Guest description, Experience, or Education.",
       }));
+      return false;
+    }
+    return true;
+  };
+
+  const getQuestions = async (event) => {
+    event.preventDefault();
+    if (!isValidForm()) {
       return;
     }
-    const invitee_info = {
-      invitee_about: form.invitee_about,
-      experience: form.experience,
-      // education field will be added to the form eventually, but it is low priority and unncecessary for MVP
-      education: form.education,
-      invitee_industry: form.invitee_industry ?? "",
-      goal: form.goal ?? "",
-    };
+    const invitee_info = getQuestionData(form);
     setIsLoadingQuestions(true);
     const res = await generateQuestions(invitee_info);
     setIsLoadingQuestions(false);
@@ -100,6 +117,10 @@ const ChatForm = ({
       user_id: user.id,
       email: user.email,
     });
+    handleResult(res);
+  };
+
+  const handleResult = (res) => {
     if (res.status !== 200) {
       setErrors((prevState) => ({
         ...prevState,
@@ -139,6 +160,7 @@ const ChatForm = ({
 
   return (
     <Form onSubmit={(e) => onSubmit(e, form)} className="mb-5">
+      <ChatModal show={show} onHide={() => setShow(false)} />
       <TextInput
         name="title"
         title={"Title*"}
@@ -149,30 +171,14 @@ const ChatForm = ({
         errors={errors}
       />
       <TextInput
-        name="invitee_name"
-        title={"Guest Name"}
-        className="form-input"
-        value={form.invitee_name}
-        handleChange={handleTextInputChange}
-        errors={errors}
-      />
-      <TextInput
-        name="meeting_link"
-        title={"Meeting Link"}
-        className="form-input"
-        value={form.meeting_link}
-        handleChange={handleTextInputChange}
-        errors={errors}
-      />
-      <TextInput
         name="invitee_industry"
-        title={"Guest Industry"}
+        title={"Industry of Guest"}
         className="form-input"
         value={form.invitee_industry}
         handleChange={handleTextInputChange}
         errors={errors}
       />
-      <Form.Group className="mb-5">
+      {/* <Form.Group className="mb-5">
         <label style={{ width: "13rem" }}>Meeting Time*</label>
         <DateTimePicker
           name="meeting_start_time"
@@ -193,21 +199,22 @@ const ChatForm = ({
         {errors.meeting_start_time && (
           <div className="error">{errors.meeting_start_time}</div>
         )}
-      </Form.Group>
+      </Form.Group> */}
 
       <MultiSelect setForm={setForm} form={form} />
 
       <TextArea
         name="invitee_about"
-        title="Description of Guest"
+        title="Description of Guest (Optional)"
         value={form.invitee_about}
         handleChange={handleTextInputChange}
-        placeholder="Please describe the guest in a few sentences."
+        placeholder="Please describe the guest and your relation to them in a few sentences."
         errors={errors}
-        text=""
       />
 
       <Experience experience={form.experience} setForm={setForm} />
+
+      <Education education={form.education} setForm={setForm} />
 
       <OverlayTrigger
         trigger={["hover", "focus"]}

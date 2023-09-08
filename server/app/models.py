@@ -16,7 +16,7 @@ class Meeting(models.Model):
     goal = models.TextField(default="", blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    meeting_start_time = models.DateTimeField()
+    meeting_start_time = models.DateTimeField(blank=True, null=True)
     user = models.ForeignKey(User, related_name='meetings', on_delete=models.CASCADE)
 
     class Meta:

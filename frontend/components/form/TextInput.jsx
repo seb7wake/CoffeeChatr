@@ -3,8 +3,10 @@ import { Form } from "react-bootstrap";
 
 const TextInput = (props) => {
   return (
-    <Form.Group className="d-flex mb-4 align-items-center">
-      <Form.Label style={{ width: "13rem" }}>{props.title}</Form.Label>
+    <Form.Group className="d-flex mb-5 align-items-center">
+      <Form.Label style={{ width: "10rem", marginBottom: 0 }}>
+        {props.title}
+      </Form.Label>
       <Form.Control
         type="text"
         className="w-50"

@@ -7,7 +7,7 @@ import { useUser } from "@auth0/nextjs-auth0/client";
 import DateTimePicker from "react-datetime-picker";
 import "react-datetime-picker/dist/DateTimePicker.css";
 import "react-calendar/dist/Calendar.css";
-import ChatForm from "@/components/ChatForm";
+import ChatForm from "@/components/form/ChatForm";
 import LoadingOverlay from "react-loading-overlay";
 import Spinner from "@/components/Spinner";
 import { useAppContext } from "@/context/state";
@@ -31,13 +31,6 @@ const Create = () => {
       }));
       return;
     }
-    if (!form.meeting_start_time) {
-      setErrors((prevState) => ({
-        ...prevState,
-        meeting_start_time: "Please enter a meeting start time",
-      }));
-      return;
-    }
     const res = await createChat(currentUser.id, trimEmptyFields(form));
     amplitude.track("Create Chat", {
       status: res.status,
@@ -45,6 +38,10 @@ const Create = () => {
       user_id: currentUser.id,
       email: currentUser.email,
     });
+    handleResult(res);
+  };
+
+  const handleResult = (res) => {
     if (res.status === 201) {
       Router.push({
         pathname: "/home",
@@ -87,7 +84,7 @@ const Create = () => {
     >
       <div>
         <NavigationBar isCreate={true} user={currentUser} />
-        <h2 className="chat-title text-2xl font-semibold">
+        <h2 className="chat-title text-2xl mb-4 font-semibold">
           Create Coffee Chat
         </h2>
         <div className="form-container">

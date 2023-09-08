@@ -15,6 +15,7 @@ export function AppWrapper({ children }) {
     amplitude.init(process.env.NEXT_PUBLIC_AMPLITUDE_API_KEY, {
       defaultTracking: true,
     });
+
     const getOrCreateUser = async () => {
       const result = await getUser(user.email);
       const identifyEvent = new amplitude.Identify();
@@ -25,6 +26,7 @@ export function AppWrapper({ children }) {
         await newUser(identifyEvent);
       }
     };
+
     if (!isLoading && user && currentUser === undefined) {
       getOrCreateUser();
     } else if (!isLoading && !user) {

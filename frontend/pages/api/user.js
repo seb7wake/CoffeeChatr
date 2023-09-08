@@ -19,7 +19,6 @@ const createUser = async (email) => {
     }
   );
   const data = response.status === 201 ? await response.json() : "";
-  console.log(response);
   return { status: response.status, data };
 };
 

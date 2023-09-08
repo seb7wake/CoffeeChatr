@@ -11,7 +11,7 @@ class MeetingSerializer(serializers.ModelSerializer):
         model = Meeting
         fields = ('id', 'title', 'invitee_name', 'meeting_link', 'goal', "education", "experience", 'invitee_linkedin_url', "meeting_link", "invitee_industry", "invitee_about", "meeting_notes", "questions", "meeting_start_time")
     
-    meeting_start_time = serializers.DateTimeField(format="%Y-%m-%d %H:%M:%S", required=True)
+    meeting_start_time = serializers.DateTimeField(format="%Y-%m-%d %H:%M:%S", allow_null=True, required=False)
     experience = serializers.SerializerMethodField()
     education = serializers.SerializerMethodField()
 
